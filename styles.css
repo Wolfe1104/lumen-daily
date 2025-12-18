@@ -9,7 +9,6 @@ body {
   text-align: center;
 }
 
-/* Background image */
 .background {
   position: fixed;
   inset: 0;
@@ -18,7 +17,6 @@ body {
   z-index: -2;
 }
 
-/* Soft divine glow overlay */
 .background::after {
   content: "";
   position: absolute;
@@ -31,36 +29,37 @@ header {
   padding: 40px 20px 20px;
 }
 
-h1 {
-  font-size: 3rem;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-
-#date {
-  opacity: 0.9;
-}
-
-/* Date navigation arrows */
-.date-nav {
+/* Title + arrows */
+.title-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
 }
 
-.date-nav button {
+.title-nav h1 {
+  font-size: 3rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.title-nav button {
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.4);
   color: white;
-  font-size: 1.2rem;
-  padding: 6px 12px;
+  font-size: 1.4rem;
+  padding: 8px 14px;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.date-nav button:hover {
+.title-nav button:hover {
   background: rgba(255,255,255,0.3);
+}
+
+#date {
+  margin-top: 10px;
+  opacity: 0.9;
 }
 
 nav {
@@ -78,7 +77,6 @@ nav button {
   padding: 10px 16px;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 nav button:hover {
