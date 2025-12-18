@@ -1,25 +1,44 @@
- body {
+ * {
+  box-sizing: border-box;
+}
+
+body {
   margin: 0;
-  font-family: 'Georgia', serif;
+  font-family: Georgia, serif;
   color: #ffffff;
   text-align: center;
 }
 
+/* Background image */
 .background {
   position: fixed;
   inset: 0;
-  background: url("images/jesus-heart.jpg") no-repeat center center/cover;
+  background: url("file_00000000b05871f8b90495cba20701df.png") no-repeat center center / cover;
   filter: brightness(0.4);
+  z-index: -2;
+}
+
+/* Soft divine glow overlay */
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,190,120,0.18), transparent 65%);
   z-index: -1;
 }
 
 header {
-  padding: 40px 20px;
+  padding: 40px 20px 20px;
 }
 
 h1 {
   font-size: 3rem;
   letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+#date {
+  opacity: 0.9;
 }
 
 nav {
@@ -35,8 +54,9 @@ nav button {
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: white;
   padding: 10px 16px;
-  cursor: pointer;
   border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 nav button:hover {
@@ -44,25 +64,25 @@ nav button:hover {
 }
 
 main {
-  max-width: 700px;
+  max-width: 750px;
   margin: 40px auto;
-  padding: 20px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 20px;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 24px;
 }
 
 #verse {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 20px;
 }
 
 #interpretation {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.15rem;
+  line-height: 1.7;
 }
 
 footer {
   margin: 40px 0;
   font-size: 0.9rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
