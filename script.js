@@ -1,31 +1,35 @@
- const devotionals = {
+const devotionals = {
   anxiety: {
     verse: "Cast all your anxiety on Him because He cares for you. — 1 Peter 5:7",
-    interpretation: "Anxiety convinces you that you are alone in carrying the weight. This verse says otherwise. You are not expected to be strong forever. You are invited to release what is crushing you."
+    interpretation: "Anxiety tells you everything depends on you. This verse dismantles that lie. You are not carrying life alone, and you never were."
   },
   fear: {
     verse: "Do not fear, for I am with you. — Isaiah 41:10",
-    interpretation: "Fear thrives in isolation. This promise destroys that illusion. You may feel afraid, but you are not abandoned."
+    interpretation: "Fear survives on isolation. Presence destroys it. This promise does not remove danger, but it removes abandonment."
   },
   grief: {
     verse: "The Lord is close to the brokenhearted. — Psalm 34:18",
-    interpretation: "Grief does not repel God. It draws Him nearer. Your pain is not something to hide. It is something He enters."
+    interpretation: "Grief is not a failure of faith. It is proof of love. God does not wait for you to heal before drawing near."
   },
   sadness: {
-    verse: "Weeping may stay for the night, but rejoicing comes in the morning. — Psalm 30:5",
-    interpretation: "This is not a denial of pain. It is a reminder that sorrow does not get the final word."
+    verse: "Weeping may endure for a night, but joy comes in the morning. — Psalm 30:5",
+    interpretation: "This is not denial. It is endurance. Night is real, but it is not permanent."
   },
   confusion: {
     verse: "Trust in the Lord with all your heart. — Proverbs 3:5",
-    interpretation: "Clarity is not required for trust. Faith begins precisely where understanding runs out."
+    interpretation: "Understanding is comforting, but trust is braver. Faith begins where explanations end."
   },
   loneliness: {
     verse: "Never will I leave you; never will I forsake you. — Hebrews 13:5",
-    interpretation: "Loneliness lies. Presence does not. Even when unseen, you are held."
+    interpretation: "Loneliness feels like absence. This promise speaks of unseen presence that does not clock out."
   },
   doubt: {
     verse: "Lord, I believe; help my unbelief. — Mark 9:24",
-    interpretation: "Doubt is not the opposite of faith. It is often faith asking for help."
+    interpretation: "Doubt is not rebellion. It is honesty. Faith that asks for help is still faith."
+  },
+  weariness: {
+    verse: "Come to me, all who are weary and burdened. — Matthew 11:28",
+    interpretation: "Rest is not a reward for strength. It is an invitation for the exhausted."
   }
 };
 
