@@ -1,0 +1,39 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lumen Daily</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <header>
+    <h1>Lumen Daily</h1>
+    <p id="date"></p>
+  </header>
+
+  <nav>
+    <button onclick="loadDevotional('anxiety')">Anxiety</button>
+    <button onclick="loadDevotional('fear')">Fear</button>
+    <button onclick="loadDevotional('grief')">Grief</button>
+    <button onclick="loadDevotional('sadness')">Sadness</button>
+    <button onclick="loadDevotional('confusion')">Confusion</button>
+    <button onclick="loadDevotional('loneliness')">Loneliness</button>
+    <button onclick="loadDevotional('doubt')">Doubt</button>
+  </nav>
+
+  <main>
+    <h2 id="verse"></h2>
+    <p id="interpretation"></p>
+  </main>
+
+  <footer>
+    <p>Delivered daily. Held gently.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
