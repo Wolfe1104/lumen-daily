@@ -71,8 +71,7 @@ function updateDevotional() {
 function updateDate() {
   const date = new Date();
   date.setDate(date.getDate() + dayOffset);
-
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
   document.getElementById("date").innerText =
     date.toLocaleDateString(undefined, options);
 }
@@ -88,5 +87,7 @@ function setCategory(category) {
   updateDevotional();
 }
 
-updateDate();
-updateDevotional();
+document.addEventListener("DOMContentLoaded", () => {
+  updateDate();
+  updateDevotional();
+});
