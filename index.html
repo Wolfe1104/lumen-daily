@@ -12,29 +12,25 @@
 
   <header>
     <h1>Lumen Daily</h1>
-    <p id="date"></p>
+
+    <div class="date-nav">
+      <button onclick="changeDay(-1)">&#9664;</button>
+      <p id="date"></p>
+      <button onclick="changeDay(1)">&#9654;</button>
+    </div>
   </header>
 
   <nav>
-    <button onclick="loadDevotional('anxiety')">Anxiety</button>
-    <button onclick="loadDevotional('fear')">Fear</button>
-    <button onclick="loadDevotional('grief')">Grief</button>
-    <button onclick="loadDevotional('sadness')">Sadness</button>
-    <button onclick="loadDevotional('confusion')">Confusion</button>
-    <button onclick="loadDevotional('loneliness')">Loneliness</button>
-    <button onclick="loadDevotional('doubt')">Doubt</button>
-    <button onclick="loadDevotional('weariness')">Weariness</button>
+    <button onclick="setCategory('anxiety')">Anxiety</button>
+    <button onclick="setCategory('fear')">Fear</button>
+    <button onclick="setCategory('grief')">Grief</button>
+    <button onclick="setCategory('sadness')">Sadness</button>
+    <button onclick="setCategory('confusion')">Confusion</button>
+    <button onclick="setCategory('loneliness')">Loneliness</button>
+    <button onclick="setCategory('doubt')">Doubt</button>
+    <button onclick="setCategory('weariness')">Weariness</button>
   </nav>
 
   <main>
     <h2 id="verse"></h2>
-    <p id="interpretation"></p>
-  </main>
-
-  <footer>
-    <p>Delivered daily. Held gently.</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    <p id="interpret
