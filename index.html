@@ -2,23 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lumen Daily</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Light</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
   <div class="background"></div>
 
   <header>
-    <div class="title-nav">
-      <button onclick="changeDay(-1)">&#9664;</button>
-      <h1>Lumen Daily</h1>
-      <button onclick="changeDay(1)">&#9654;</button>
+    <button class="arrow" onclick="changeDay(-1)">&#8592;</button>
+
+    <div class="title-block">
+      <h1>Daily Light</h1>
+      <p id="date"></p>
+      <p id="day-counter"></p>
     </div>
 
-    <p id="date"></p>
+    <button class="arrow" onclick="changeDay(1)">&#8594;</button>
   </header>
+
+  <section class="jump-controls">
+    <input type="number" id="jumpInput" placeholder="Days">
+    <button onclick="jumpDays()">Jump</button>
+  </section>
+
+  <main>
+    <h2 id="verse"></h2>
+    <p id="interpretation"></p>
+  </main>
 
   <nav>
     <button onclick="setCategory('anxiety')">Anxiety</button>
@@ -31,15 +41,6 @@
     <button onclick="setCategory('weariness')">Weariness</button>
   </nav>
 
-  <main>
-    <h2 id="verse"></h2>
-    <p id="interpretation"></p>
-  </main>
-
-  <footer>
-    <p>Delivered daily. Held gently.</p>
-  </footer>
-
   <script src="script.js"></script>
 </body>
-</html>
+</
