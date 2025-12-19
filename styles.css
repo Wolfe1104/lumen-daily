@@ -28,14 +28,8 @@ body {
   filter: brightness(0.35) sepia(0.3);
 }
 
-/* Two empty rows above Daily Light */
-.spacer-row {
-  height: 60px; /* Adjust this value for more/less space (each row = one line) */
-  flex-shrink: 0;
-}
-
 header {
-  padding: 20px 16px;
+  padding: 60px 16px 30px; /* Balanced top spacing - "Daily Light" at top with room */
   position: relative;
   z-index: 10;
 }
@@ -91,7 +85,7 @@ header {
 
 .menu-btn {
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 25px;
   z-index: 1001;
   background: rgba(0,0,0,0.4);
@@ -321,5 +315,5 @@ main {
   .menu-btn { width: 55px; height: 55px; top: 40px; left: 20px; }
   .side-menu { width: 280px; left: -300px; }
   .side-menu.open { left: 0; }
-  .spacer-row { height: 80px; } /* More space on mobile */
+  header { padding: 80px 16px 30px; }
 }
