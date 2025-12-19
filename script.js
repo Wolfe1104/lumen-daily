@@ -1,6 +1,11 @@
 let dayOffset = 0;
 let currentCategory = "anxiety";
 
+// Swipe detection variables
+let touchStartX = 0;
+let touchEndX = 0;
+const swipeThreshold = 50; // minimum distance for swipe
+
 const versePools = {
   anxiety: [
     "Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus. — Philippians 4:6-7",
@@ -208,6 +213,31 @@ window.onclick = function(event) {
   const modal = document.getElementById("modal");
   if (event.target === modal) closeModal();
 };
+
+// Swipe to open menu (works on Android)
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+  if (touchEndX < touchStartX - swipeThreshold) {
+    // Swipe left - do nothing or close if open
+    if (document.getElementById("side-menu").classList.contains("open")) {
+      toggleMenu();
+    }
+  }
+  if (touchEndX > touchStartX + swipeThreshold) {
+    // Swipe right - open menu
+    if (!document.getElementById("side-menu").classList.contains("open")) {
+      toggleMenu();
+    }
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   updateDate();
