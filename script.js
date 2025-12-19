@@ -32,45 +32,38 @@ const versePools = {
     "He will wipe every tear from their eyes. — Revelation 21:4",
     "My flesh and my heart may fail, but God is the strength of my heart and my portion forever. — Psalm 73:26",
     "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
-    "For his anger is but for a moment, and his favor is for a lifetime. Weeping may tarry for the night, but joy comes with the morning. — Psalm 30:5",
-    "The Lord is near to the brokenhearted and saves the crushed in spirit. — Psalm 34:18",
-    "Blessed be the God... of all comfort, who comforts us in all our affliction. — 2 Corinthians 1:3-4"
+    "For his anger is but for a moment, and his favor is for a lifetime. Weeping may tarry for the night, but joy comes with the morning. — Psalm 30:5"
   ],
   sadness: [
     "Weeping may endure for a night, but joy comes in the morning. — Psalm 30:5",
     "Why are you downcast, O my soul? Hope in God. — Psalm 42:11",
     "The joy of the Lord is your strength. — Nehemiah 8:10",
     "You have turned my mourning into dancing. — Psalm 30:11",
-    "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
-    "Come to me, all who labor and are heavy laden, and I will give you rest. — Matthew 11:28"
+    "He heals the brokenhearted and binds up their wounds. — Psalm 147:3"
   ],
   confusion: [
     "God is not the author of confusion, but of peace. — 1 Corinthians 14:33",
     "Trust in the Lord with all your heart and lean not on your own understanding. — Proverbs 3:5",
     "Your word is a lamp to my feet and a light to my path. — Psalm 119:105",
-    "If any of you lacks wisdom, let him ask of God. — James 1:5",
-    "For God gave us a spirit not of fear but of power and love and self-control. — 2 Timothy 1:7"
+    "If any of you lacks wisdom, let him ask of God. — James 1:5"
   ],
   loneliness: [
     "I will never leave you nor forsake you. — Hebrews 13:5",
     "The Lord is near to all who call on Him. — Psalm 145:18",
     "Even if my father and mother forsake me, the Lord will receive me. — Psalm 27:10",
-    "When you pass through the waters, I will be with you. — Isaiah 43:2",
-    "Teaching them... And behold, I am with you always, to the end of the age. — Matthew 28:20"
+    "When you pass through the waters, I will be with you. — Isaiah 43:2"
   ],
   doubt: [
     "Lord, I believe; help my unbelief. — Mark 9:24",
     "If you have faith as small as a mustard seed… nothing will be impossible for you. — Matthew 17:20",
     "Blessed are those who have not seen and yet believe. — John 20:29",
-    "The Lord is faithful to all His promises. — Psalm 145:13",
-    "Now faith is the assurance of things hoped for, the conviction of things not seen. — Hebrews 11:1"
+    "The Lord is faithful to all His promises. — Psalm 145:13"
   ],
   weariness: [
     "Come to me, all who are weary, and I will give you rest. — Matthew 11:28",
     "He gives strength to the weary. — Isaiah 40:29",
     "Let us not grow weary in doing good. — Galatians 6:9",
-    "Those who hope in the Lord will renew their strength. They will soar on wings like eagles. — Isaiah 40:31",
-    "My presence will go with you, and I will give you rest. — Exodus 33:14"
+    "Those who hope in the Lord will renew their strength. They will soar on wings like eagles. — Isaiah 40:31"
   ]
 };
 
@@ -105,45 +98,38 @@ const interpretations = {
     "One day, every tear will be personally wiped away by God's own hand.",
     "When everything fails, God remains your strength and eternal portion.",
     "He doesn't just see your wounds — He binds them with tender healing.",
-    "Joy comes after the night of weeping — His favor lasts a lifetime.",
-    "God is close to the crushed in spirit — He saves and restores.",
-    "He is the Father of mercies and God of all comfort in every affliction."
+    "Joy comes after the night of weeping — His favor lasts a lifetime."
   ],
   sadness: [
     "Night may bring weeping, but God's dawn always brings joy.",
     "Your soul has reason to hope — place it fully in God alone.",
     "True strength is found not in circumstance, but in the joy of the Lord.",
     "God transforms mourning into dancing — He renews your spirit.",
-    "He heals the brokenhearted and binds up their wounds.",
-    "Jesus calls the heavy-laden to come and find true rest."
+    "He heals the brokenhearted and binds up their wounds."
   ],
   confusion: [
     "God brings peace, not confusion. Trust in His order today.",
     "Leaning on limited understanding leads to confusion — acknowledge Him for clarity.",
     "God's Word lights every step — even when the path feels unclear.",
-    "Wisdom is a gift freely given to those who ask in faith.",
-    "God gives a spirit of power and clear thinking, not fear or confusion."
+    "Wisdom is a gift freely given to those who ask in faith."
   ],
   loneliness: [
     "God's promise is unbreakable — He will never leave or forsake you.",
     "He is near to all who call on Him in truth.",
     "Even if all others abandon you, the Lord receives you with open arms.",
-    "Through every deep water, He walks with you.",
-    "Jesus promises His presence with you always — to the very end."
+    "Through every deep water, He walks with you."
   ],
   doubt: [
     "Honest doubt brought to Jesus receives help for unbelief.",
     "Even small faith can move mountains — God honors what you have.",
     "Believing without seeing is deeply blessed by God.",
-    "God's faithfulness to His promises removes grounds for doubt.",
-    "Faith is confidence in the unseen — hold fast to God's character."
+    "God's faithfulness to His promises removes grounds for doubt."
   ],
   weariness: [
     "Jesus invites the exhausted to find true soul-rest in Him.",
     "God gives fresh strength to those who feel depleted.",
     "Persevere in good — your harvest is coming.",
-    "Hope in the Lord brings renewed strength like eagles' wings.",
-    "God's presence brings deep rest — even in the journey."
+    "Hope in the Lord brings renewed strength like eagles' wings."
   ]
 };
 
@@ -157,23 +143,19 @@ function updateDevotional() {
   const date = new Date();
   date.setDate(date.getDate() + dayOffset);
 
-  let dayIndex = getDayOfYear(date) % 365;
-
   const verses = versePools[currentCategory] || versePools.anxiety;
   const interps = interpretations[currentCategory] || ["God speaks tenderly to you today."];
 
-  const idx = dayIndex % verses.length;
+  const idx = getDayOfYear(date) % verses.length;
   const verse = verses[idx];
   const fullInterp = interps[idx] || "This truth is God's gentle whisper to your soul today.";
 
   document.getElementById("verse").innerText = verse;
   document.getElementById("modal-verse").innerText = verse;
 
-  const introText = fullInterp.length > 100 ? fullInterp.substring(0, 100) + '... (tap for full reflection)' : fullInterp;
+  const introText = fullInterp.length > 120 ? fullInterp.substring(0, 120) + '... (tap for full reflection)' : fullInterp;
   document.getElementById("intro").innerText = introText;
   document.getElementById("full-interpretation").innerText = fullInterp;
-
-  document.getElementById("day-counter").innerText = `Day ${dayIndex + 1} of 365`;
 }
 
 function updateDate() {
@@ -208,8 +190,10 @@ function setCategory(category) {
 }
 
 function toggleMenu() {
-  document.getElementById("side-menu").classList.toggle("open");
-  document.getElementById("overlay").classList.toggle("active");
+  const menu = document.getElementById("side-menu");
+  const overlay = document.getElementById("overlay");
+  menu.classList.toggle("open");
+  overlay.classList.toggle("active");
 }
 
 function openModal() {
