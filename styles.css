@@ -28,9 +28,9 @@ body {
   filter: brightness(0.35) sepia(0.3);
 }
 
-/* Balanced top spacing to move "Daily Light" down without hiding content below */
+/* Significantly increased top padding to move "Daily Light" down several lines */
 header {
-  padding: 90px 16px 30px; /* Moderate top padding — moves title down a couple of lines */
+  padding: 180px 16px 50px; /* Large top padding — clearly moves title down */
   position: relative;
   z-index: 10;
 }
@@ -38,42 +38,9 @@ header {
 .title-block {
   flex: 1;
   text-align: center;
-  padding-left: 80px; /* Space for hamburger icon */
+  padding-left: 80px;
 }
 
 .title-block h1 {
   margin: 0;
-  font-family: 'Cinzel Decorative', cursive;
-  font-size: clamp(2.8rem, 9vw, 5rem);
-  color: #d4af37;
-  text-shadow: 0 0 20px rgba(212,175,55,0.7);
-  letter-spacing: 2px;
-}
-
-#date {
-  margin: 15px 0 0;
-  font-size: clamp(1.3rem, 4vw, 1.8rem);
-  color: #e6ccb2;
-  font-weight: 300;
-}
-
-.nav-arrows {
-  position: absolute;
-  top: 55%; /* Centered vertically in header */
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 11;
-}
-
-.arrow {
-  width: 65px;
-  height: 65px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  filter: drop-shadow(0 0 12px
+  font-family: 'Cin
