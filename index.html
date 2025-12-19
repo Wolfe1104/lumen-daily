@@ -8,8 +8,52 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Same HTML structure as before -->
-  <!-- (copy the body content from my previous full HTML) -->
+  <div class="background"></div>
+
+  <header>
+    <button class="arrow" onclick="changeDay(-1)">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+
+    <div class="title-block">
+      <h1>Daily Light</h1>
+      <p id="date"></p>
+      <p id="day-counter"></p>
+    </div>
+
+    <button class="arrow" onclick="changeDay(1)">
+      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+  </header>
+
+  <section class="jump-controls">
+    <input type="number" id="jumpInput" placeholder="Jump days">
+    <button onclick="jumpDays()">Jump</button>
+  </section>
+
+  <main>
+    <h2 id="verse" onclick="openModal()"></h2>
+    <p id="intro" onclick="openModal()"></p>
+  </main>
+
+  <nav>
+    <button onclick="setCategory('anxiety')">Anxiety</button>
+    <button onclick="setCategory('fear')">Fear</button>
+    <button onclick="setCategory('grief')">Grief</button>
+    <button onclick="setCategory('sadness')">Sadness</button>
+    <button onclick="setCategory('confusion')">Confusion</button>
+    <button onclick="setCategory('loneliness')">Loneliness</button>
+    <button onclick="setCategory('doubt')">Doubt</button>
+    <button onclick="setCategory('weariness')">Weariness</button>
+  </nav>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-verse"></h2>
+      <p id="full-interpretation"></p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
