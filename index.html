@@ -1,297 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Devotional App</title>
-    <style>
-        body {
-            font-family: 'Georgia', serif;
-            margin: 20px;
-            text-align: center;
-            background-color: #f9f7f4;
-            color: #333;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        #date, #day-counter {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: #555;
-        }
-        #verse {
-            font-size: 1.4em;
-            font-style: italic;
-            margin: 30px auto;
-            max-width: 800px;
-            line-height: 1.6;
-            padding: 20px;
-            background-color: #fff;
-            border-left: 5px solid #8b6f47;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        #interpretation {
-            font-size: 1.1em;
-            margin: 30px auto;
-            max-width: 800px;
-            line-height: 1.8;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .controls {
-            margin: 20px 0;
-        }
-        button {
-            margin: 8px;
-            padding: 12px 20px;
-            font-size: 1em;
-            background-color: #8b6f47;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #6b552f;
-        }
-        input {
-            padding: 12px;
-            font-size: 1em;
-            width: 150px;
-        }
-        .category-buttons {
-            margin-top: 30px;
-        }
-        .category-buttons button {
-            background-color: #a89068;
-        }
-        .category-buttons button:hover {
-            background-color: #8b6f47;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Light</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Daily Devotional</h1>
-    <div id="date"></div>
-    <div id="day-counter"></div>
-    <div id="verse"></div>
-    <div id="interpretation"></div>
 
-    <div class="controls">
-        <button onclick="changeDay(-1)">← Previous Day</button>
-        <button onclick="changeDay(1)">Next Day →</button>
-        <input id="jumpInput" type="number" placeholder="Jump days (±)">
-        <button onclick="jumpDays()">Jump</button>
+  <div class="background"></div>
+
+  <header>
+    <button class="arrow" onclick="changeDay(-1)">&#8592;</button>
+
+    <div class="title-block">
+      <h1>Daily Light</h1>
+      <p id="date"></p>
+      <p id="day-counter"></p>
     </div>
 
-    <div class="category-buttons">
-        <h2>Choose Your Focus Today</h2>
-        <button onclick="setCategory('anxiety')">Anxiety</button>
-        <button onclick="setCategory('fear')">Fear</button>
-        <button onclick="setCategory('grief')">Grief</button>
-        <button onclick="setCategory('sadness')">Sadness</button>
-        <button onclick="setCategory('confusion')">Confusion</button>
-        <button onclick="setCategory('loneliness')">Loneliness</button>
-        <button onclick="setCategory('doubt')">Doubt</button>
-        <button onclick="setCategory('weariness')">Weariness</button>
-    </div>
+    <button class="arrow" onclick="changeDay(1)">&#8594;</button>
+  </header>
 
-    <script>
-        let dayOffset = 0;
-        let currentCategory = "anxiety";
+  <section class="jump-controls">
+    <input type="number" id="jumpInput" placeholder="Days">
+    <button onclick="jumpDays()">Jump</button>
+  </section>
 
-        const versePools = {
-            anxiety: [
-                "Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus. — Philippians 4:6-7",
-                "Casting all your anxieties on him, because he cares for you. — 1 Peter 5:7",
-                "Peace I leave with you; my peace I give to you. Not as the world gives do I give to you. Let not your hearts be troubled, neither let them be afraid. — John 14:27",
-                "For God gave us a spirit not of fear but of power and love and self-control. — 2 Timothy 1:7",
-                "Cast your burden on the Lord, and he will sustain you; he will never permit the righteous to be moved. — Psalm 55:22",
-                "Therefore I tell you, do not be anxious about your life... Consider the lilies of the field, how they grow... — Matthew 6:25-34",
-                "Humble yourselves... casting all your anxieties on him, because he cares for you. — 1 Peter 5:6-7",
-                "The Lord is my helper; I will not fear; what can man do to me? — Hebrews 13:6",
-                "Be strong and courageous... for the Lord your God is with you wherever you go. — Joshua 1:9",
-                "Therefore do not be anxious about tomorrow... — Matthew 6:34",
-                "When the cares of my heart are many, your consolations cheer my soul. — Psalm 94:19",
-                "Trust in the Lord with all your heart... — Proverbs 3:5-6",
-                "Fear not, for I am with you... — Isaiah 41:10",
-                "For I know the plans I have for you... — Jeremiah 29:11",
-                "Anxiety in a man's heart weighs him down... — Proverbs 12:25",
-                "When I am afraid, I put my trust in you. — Psalm 56:3",
-                "I can do all things through him who strengthens me. — Philippians 4:13",
-                "Be strong; fear not!... He will come and save you. — Isaiah 35:4",
-                "Come to me, all who labor and are heavy laden... — Matthew 11:28-30",
-                "I sought the Lord, and he answered me... — Psalm 34:4",
-                "Even though I walk through the valley of the shadow of death... — Psalm 23:4",
-                "For I am sure that neither death nor life... will be able to separate us... — Romans 8:38-39",
-                "Now may the Lord of peace himself give you peace... — 2 Thessalonians 3:16",
-                "And after you have suffered a little while... will himself restore... you. — 1 Peter 5:10",
-                "But they who wait for the Lord shall renew their strength... — Isaiah 40:31",
-                "There is no fear in love, but perfect love casts out fear... — 1 John 4:18",
-                "And let the peace of Christ rule in your hearts... — Colossians 3:15",
-                "Let not your hearts be troubled. Believe in God; believe also in me. — John 14:1",
-                "Now faith is the assurance of things hoped for... — Hebrews 11:1",
-                "Have no fear of them, nor be troubled — 1 Peter 3:14",
-                "And which of you by being anxious can add a single hour... — Matthew 6:27",
-                "In my Father's house are many rooms... — John 14:1-4",
-                "I will never leave you nor forsake you... — Hebrews 13:5-6",
-                "If any of you lacks wisdom, let him ask God... — James 1:5",
-                "Be strong and courageous... He will not leave you or forsake you. — Deuteronomy 31:6",
-                "The Lord is my light and my salvation; whom shall I fear? — Psalm 27:1",
-                "The Lord will fulfill his purpose for me... — Psalm 138:8",
-                "And we know that for those who love God all things work together for good... — Romans 8:28",
-                "You keep him in perfect peace whose mind is stayed on you... — Isaiah 26:3",
-                "The Lord is my shepherd; I shall not want... — Psalm 23:1-6",
-                "Fear not, therefore; you are of more value than many sparrows. — Matthew 10:29-31",
-                "The fear of man lays a snare... — Proverbs 29:25",
-                "When the righteous cry for help, the Lord hears... — Psalm 34:17",
-                "Fear not, for I have redeemed you; I have called you by name... — Isaiah 43:1",
-                "No temptation has overtaken you... God... will also provide the way of escape... — 1 Corinthians 10:13",
-                "Many are the sorrows of the wicked, but steadfast love surrounds... — Psalm 32:8-10",
-                "And my God will supply every need of yours... — Philippians 4:19",
-                "The Lord will fight for you... — Exodus 14:14",
-                "Turn away from evil and do good; seek peace and pursue it. — Psalm 34:14",
-                "Likewise the Spirit helps us in our weakness... — Romans 8:26-28",
-                "Consider the ravens... Of how much more value are you... — Luke 12:22-26",
-                "The Lord your God is in your midst... he will quiet you by his love... — Zephaniah 3:17",
-                "He will wipe away every tear... — Revelation 21:4",
-                "He who dwells in the shelter of the Most High... — Psalm 91:1-16",
-                "I have said these things to you, that in me you may have peace... — John 16:33"
-            ],
-            // Other categories remain the same (omitted for brevity in this response, but include all as before)
-        };
+  <main>
+    <h2 id="verse"></h2>
+    <p id="interpretation"></p>
+  </main>
 
-        // Unique interpretations for each verse in each category
-        const interpretations = {
-            anxiety: [
-                "Day 1: Anxiety often feels like carrying tomorrow's burdens today. Paul reminds us to hand them over in prayer—not once, but with thanksgiving—because gratitude shifts our gaze from the problem to the Provider who already holds the outcome.",
-                "Day 2: The word 'casting' is a fishing term—throw your anxieties far from you onto Him. He is strong enough to catch every one, because His care for you is personal and unending.",
-                "Day 3: Jesus offers a peace the world cannot manufacture. It isn't the absence of trouble but the presence of Him in the midst of it. Receive it today as a gift, not something you must earn.",
-                "Day 4: Fear is not your birthright as a child of God. You have been given a spirit of power to act, love to connect, and self-control to choose faith over panic.",
-                "Day 5: A burden cast on the Lord doesn't bounce back. He sustains you—not just barely, but with strength that keeps you from being shaken.",
-                "Day 6: Jesus points to birds and lilies not to shame your worry but to reveal your worth. If God clothes the temporary, how much more will He care for the eternal—you?",
-                "Day 7: Humility is the doorway to rest. Acknowledging we are not in control allows God to lift us at the right time, turning our anxiety into exaltation.",
-                "Day 8: When fear asks, 'What can man do to me?'—the answer is limited. But what the Lord can do as your helper is limitless.",
-                "Day 9: Courage is not the absence of fear but the presence of God. He commands strength because He promises companionship wherever life takes you.",
-                "Day 10: Tomorrow has enough trouble of its own—don't borrow it. Live fully in today’s grace, which is precisely measured for today’s needs.",
-                "Day 11: When cares multiply, God's consolations multiply more. His comfort is not a temporary distraction but a soul-deep cheer that outlasts the storm.",
-                "Day 12: Leaning on our own understanding is exhausting. Acknowledging Him in every path straightens what feels crooked and uncertain.",
-                "Day 13: God's presence is not passive—He strengthens, helps, and upholds you with a hand that cannot be shaken.",
-                "Day 14: God's plans for you are not vague hopes but declared intentions—welfare, future, hope. Rest in the certainty of His good heart toward you.",
-                "Day 15: Anxiety weighs the heart down like a stone. A timely good word—especially God's Word—lifts it, bringing unexpected gladness.",
-                "Day 16: Fear loses its grip the moment we place our trust elsewhere. Say it out loud today: 'I put my trust in You.'",
-                "Day 17: Strength is not self-generated. It flows through Christ, turning 'I can't' into 'He can through me.'",
-                "Day 18: Your God is coming—not with judgment for you, but with salvation. Let that future certainty quiet today's anxious heart.",
-                "Day 19: Jesus invites the weary to trade heavy yokes for His light one. His gentleness makes rest possible even while walking through hard things.",
-                "Day 20: Seeking the Lord isn't a last resort—it's the first response that delivers us from every fear we've entertained.",
-                "Day 21: The valley is real, but so is the Shepherd. His presence turns the darkest path into one of comfort and protection.",
-                "Day 22: Nothing in all creation can sever God's love from you. Anxiety whispers separation; this verse shouts unbreakable union.",
-                "Day 23: Peace is not only a future hope but a present gift from the Lord of peace Himself, available at all times.",
-                "Day 24: Suffering is temporary; God's restoration is eternal. He personally tends to your strengthening after the trial.",
-                "Day 25: Waiting on the Lord is active trust that trades exhaustion for soaring strength—eagles don't flap harder, they ride the wind.",
-                "Day 26: Fear thrives in punishment's shadow. Perfect love removes the shadow, freeing you to live unafraid.",
-                "Day 27: Let Christ's peace act as referee in your heart, calling out worry and declaring truth the winner.",
-                "Day 28: Troubled hearts are met with a simple invitation: believe. Faith in God quiets what circumstances amplify.",
-                "Day 29: Faith is substance before sight. Hold onto the unseen reality more tightly than the seen anxiety.",
-                "Day 30: Suffering for righteousness doesn't earn fear—it earns blessing. Stand firm; trouble is not the final word.",
-                "Day 31: Anxiety promises control but delivers none. Not even an hour is added—only peace is lost.",
-                "Day 32: Jesus prepares a place and a way. Your future home is secure; your present path is known.",
-                "Day 33: Contentment frees us from fear of lack because the promise of His presence outvalues everything else.",
-                "Day 34: Wisdom is freely given to those who ask. Confusion and anxiety flee in the light of God's generous insight.",
-                "Day 35: Courage is commanded because God's presence is promised. You are never alone in the battle.",
-                "Day 36: The Lord is not just a stronghold—He is the stronghold of your life. No fear can breach Him.",
-                "Day 37: God's steadfast love ensures He will complete what He began in you. Your purpose is safe in His hands.",
-                "Day 38: All things—yes, even this anxious moment—are being woven for your good because you are His called one.",
-                "Day 39: Perfect peace belongs to the mind fixed on God. Distraction invites anxiety; focus invites peace.",
-                "Day 40: The Shepherd's provision is comprehensive—from green pastures to the table in enemy territory. You lack nothing.",
-                "Day 41: Your value is not earned but declared by the One who numbers hairs and notes sparrows.",
-                "Day 42: Trust in God sets you free from the snare of fearing people's opinions more than His approval.",
-                "Day 43: Your cry reaches God's ear. He delivers not because you are strong, but because He is faithful.",
-                "Day 44: Redemption means you belong. Called by name, you are His—fear cannot reclaim what grace has purchased.",
-                "Day 45: Temptation has limits set by God's faithfulness. An escape is always provided; look for it today.",
-                "Day 46: Steadfast love surrounds the trusting heart like a shield. Sorrows may come, but they cannot penetrate.",
-                "Day 47: Every need—seen and unseen—is met from His endless riches in glory.",
-                "Day 48: Sometimes the greatest victory is stillness while God fights on your behalf.",
-                "Day 49: Peace is found not in avoiding evil but in actively pursuing God's good.",
-                "Day 50: The Spirit prays when words fail, aligning your groans with God's perfect will.",
-                "Day 51: God feeds ravens; how much more will He sustain you, His beloved image-bearer?",
-                "Day 52: God's love quiets with rejoicing song over you—let that melody drown out anxiety's noise.",
-                "Day 53: A future without tears is promised. Present pain is temporary in light of eternal healing.",
-                "Day 54: Refuge under His wings means no terror—night or day—can touch you outside His permission.",
-                "Day 55: Jesus overcame the world; therefore, in Him, you already have peace for today's tribulation."
-            ],
-            // For other categories, you can add similar unique arrays of 50+ interpretations.
-            // Example for fear (add the rest similarly):
-            fear: [
-                "Day 1: Fear shrinks when God's presence expands in our awareness. He is with you—right now.",
-                "Day 2: The spirit God gives is not timid but bold, loving, and clear-minded. Claim your inheritance today.",
-                "Day 3: Perfect love is not your achievement but Christ's gift. Fear flees where love is perfected.",
-                // ... continue with unique reflections for each verse
-            ],
-            // Repeat for grief, sadness, confusion, loneliness, doubt, weariness with unique interpretations
-        };
+  <nav>
+    <button onclick="setCategory('anxiety')">Anxiety</button>
+    <button onclick="setCategory('fear')">Fear</button>
+    <button onclick="setCategory('grief')">Grief</button>
+    <button onclick="setCategory('sadness')">Sadness</button>
+    <button onclick="setCategory('confusion')">Confusion</button>
+    <button onclick="setCategory('loneliness')">Loneliness</button>
+    <button onclick="setCategory('doubt')">Doubt</button>
+    <button onclick="setCategory('weariness')">Weariness</button>
+  </nav>
 
-        function getDayOfYear(date) {
-            const start = new Date(date.getFullYear(), 0, 0);
-            const diff = date - start;
-            return Math.floor(diff / (1000 * 60 * 60 * 24)) - 1;
-        }
-
-        function updateDevotional() {
-            const date = new Date();
-            date.setDate(date.getDate() + dayOffset);
-
-            let dayIndex = getDayOfYear(date);
-            if (dayIndex < 0) dayIndex += 365;
-            if (dayIndex >= 365) dayIndex %= 365;
-
-            const pool = versePools[currentCategory];
-            const interpPool = interpretations[currentCategory] || ["This verse speaks directly to your heart today."];
-
-            const verseIndex = dayIndex % pool.length;
-            const verse = pool[verseIndex];
-            const interpretation = interpPool[verseIndex] || `Day ${dayIndex + 1}: God meets you gently in your need with this timeless truth.`;
-
-            document.getElementById("verse").innerText = verse;
-            document.getElementById("interpretation").innerHTML = `<strong>Reflection for Day \( {dayIndex + 1}:</strong><br> \){interpretation}`;
-
-            document.getElementById("day-counter").innerText = `Day ${dayIndex + 1} of 365`;
-        }
-
-        function updateDate() {
-            const date = new Date();
-            date.setDate(date.getDate() + dayOffset);
-            document.getElementById("date").innerText = date.toDateString();
-        }
-
-        function changeDay(amount) {
-            dayOffset += amount;
-            updateDate();
-            updateDevotional();
-        }
-
-        function jumpDays() {
-            const value = parseInt(document.getElementById("jumpInput").value, 10);
-            if (!isNaN(value)) {
-                dayOffset += value;
-                updateDate();
-                updateDevotional();
-            }
-        }
-
-        function setCategory(category) {
-            currentCategory = category;
-            updateDevotional();
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            updateDate();
-            updateDevotional();
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
