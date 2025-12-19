@@ -1,26 +1,56 @@
- let dayOffset = 0;
+let dayOffset = 0;
 let currentCategory = "anxiety";
 
-function generateYearDevotionals(category) {
-  const verses = [];
-  for (let day = 1; day <= 365; day++) {
-    verses.push({
-      verse: `${category.toUpperCase()} — Day ${day}: "The Lord is near to all who call on Him." — Psalm ${((day % 150) || 150)}:${(day % 20) + 1}`,
-      interpretation: `Day ${day} reminds you that God’s presence does not depend on your strength, clarity, or calm.`
-    });
-  }
-  return verses;
-}
-
-const devotionals = {
-  anxiety: generateYearDevotionals("anxiety"),
-  fear: generateYearDevotionals("fear"),
-  grief: generateYearDevotionals("grief"),
-  sadness: generateYearDevotionals("sadness"),
-  confusion: generateYearDevotionals("confusion"),
-  loneliness: generateYearDevotionals("loneliness"),
-  doubt: generateYearDevotionals("doubt"),
-  weariness: generateYearDevotionals("weariness")
+/* REAL verse pools per category */
+const versePools = {
+  anxiety: [
+    "Be anxious for nothing, but in everything by prayer and supplication let your requests be made known to God. — Philippians 4:6",
+    "When anxiety was great within me, your consolation brought me joy. — Psalm 94:19",
+    "Cast all your anxiety on Him because He cares for you. — 1 Peter 5:7",
+    "Do not let your hearts be troubled. Trust in God. — John 14:1"
+  ],
+  fear: [
+    "For God has not given us a spirit of fear, but of power, love, and a sound mind. — 2 Timothy 1:7",
+    "The Lord is my light and my salvation—whom shall I fear? — Psalm 27:1",
+    "Do not fear, for I am with you. — Isaiah 41:10",
+    "Perfect love drives out fear. — 1 John 4:18"
+  ],
+  grief: [
+    "The Lord is close to the brokenhearted. — Psalm 34:18",
+    "Blessed are those who mourn, for they shall be comforted. — Matthew 5:4",
+    "He will wipe every tear from their eyes. — Revelation 21:4",
+    "My flesh and my heart may fail, but God is the strength of my heart. — Psalm 73:26"
+  ],
+  sadness: [
+    "Weeping may endure for a night, but joy comes in the morning. — Psalm 30:5",
+    "Why are you downcast, O my soul? Hope in God. — Psalm 42:11",
+    "The joy of the Lord is your strength. — Nehemiah 8:10",
+    "You have turned my mourning into dancing. — Psalm 30:11"
+  ],
+  confusion: [
+    "God is not the author of confusion, but of peace. — 1 Corinthians 14:33",
+    "Trust in the Lord with all your heart and lean not on your own understanding. — Proverbs 3:5",
+    "Your word is a lamp to my feet and a light to my path. — Psalm 119:105",
+    "If any of you lacks wisdom, let him ask of God. — James 1:5"
+  ],
+  loneliness: [
+    "I will never leave you nor forsake you. — Hebrews 13:5",
+    "The Lord is near to all who call on Him. — Psalm 145:18",
+    "Even if my father and mother forsake me, the Lord will receive me. — Psalm 27:10",
+    "You are not alone, for I am with you. — Isaiah 43:2"
+  ],
+  doubt: [
+    "Lord, I believe; help my unbelief. — Mark 9:24",
+    "If you have faith as small as a mustard seed… — Matthew 17:20",
+    "Blessed are those who have not seen and yet believe. — John 20:29",
+    "The Lord is faithful to all His promises. — Psalm 145:13"
+  ],
+  weariness: [
+    "Come to me, all who are weary, and I will give you rest. — Matthew 11:28",
+    "He gives strength to the weary. — Isaiah 40:29",
+    "Let us not grow weary in doing good. — Galatians 6:9",
+    "Those who hope in the Lord will renew their strength. — Isaiah 40:31"
+  ]
 };
 
 function getDayOfYear(date) {
@@ -37,10 +67,13 @@ function updateDevotional() {
   if (dayIndex < 0) dayIndex += 365;
   if (dayIndex >= 365) dayIndex %= 365;
 
-  const devotional = devotionals[currentCategory][dayIndex];
+  const pool = versePools[currentCategory];
+  const verse = pool[dayIndex % pool.length];
 
-  document.getElementById("verse").innerText = devotional.verse;
-  document.getElementById("interpretation").innerText = devotional.interpretation;
+  document.getElementById("verse").innerText = verse;
+  document.getElementById("interpretation").innerText =
+    `Day ${dayIndex + 1}: This verse meets you exactly where you are today, not where you wish you were.`;
+
   document.getElementById("day-counter").innerText = `Day ${dayIndex + 1} of 365`;
 }
 
