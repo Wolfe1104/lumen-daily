@@ -1,78 +1,43 @@
 let dayOffset = 0;
 let currentCategory = "anxiety";
 
-/* REAL verse pools per category */
 const versePools = {
-  anxiety: [
-    "Be anxious for nothing, but in everything by prayer and supplication let your requests be made known to God. — Philippians 4:6",
-    "When anxiety was great within me, your consolation brought me joy. — Psalm 94:19",
-    "Cast all your anxiety on Him because He cares for you. — 1 Peter 5:7",
-    "Do not let your hearts be troubled. Trust in God. — John 14:1"
-  ],
-  fear: [
-    "For God has not given us a spirit of fear, but of power, love, and a sound mind. — 2 Timothy 1:7",
-    "The Lord is my light and my salvation—whom shall I fear? — Psalm 27:1",
-    "Do not fear, for I am with you. — Isaiah 41:10",
-    "Perfect love drives out fear. — 1 John 4:18"
-  ],
-  grief: [
-    "The Lord is close to the brokenhearted. — Psalm 34:18",
-    "Blessed are those who mourn, for they shall be comforted. — Matthew 5:4",
-    "He will wipe every tear from their eyes. — Revelation 21:4",
-    "My flesh and my heart may fail, but God is the strength of my heart. — Psalm 73:26"
-  ],
-  sadness: [
-    "Weeping may endure for a night, but joy comes in the morning. — Psalm 30:5",
-    "Why are you downcast, O my soul? Hope in God. — Psalm 42:11",
-    "The joy of the Lord is your strength. — Nehemiah 8:10",
-    "You have turned my mourning into dancing. — Psalm 30:11"
-  ],
-  confusion: [
-    "God is not the author of confusion, but of peace. — 1 Corinthians 14:33",
-    "Trust in the Lord with all your heart and lean not on your own understanding. — Proverbs 3:5",
-    "Your word is a lamp to my feet and a light to my path. — Psalm 119:105",
-    "If any of you lacks wisdom, let him ask of God. — James 1:5"
-  ],
-  loneliness: [
-    "I will never leave you nor forsake you. — Hebrews 13:5",
-    "The Lord is near to all who call on Him. — Psalm 145:18",
-    "Even if my father and mother forsake me, the Lord will receive me. — Psalm 27:10",
-    "You are not alone, for I am with you. — Isaiah 43:2"
-  ],
-  doubt: [
-    "Lord, I believe; help my unbelief. — Mark 9:24",
-    "If you have faith as small as a mustard seed… — Matthew 17:20",
-    "Blessed are those who have not seen and yet believe. — John 20:29",
-    "The Lord is faithful to all His promises. — Psalm 145:13"
-  ],
-  weariness: [
-    "Come to me, all who are weary, and I will give you rest. — Matthew 11:28",
-    "He gives strength to the weary. — Isaiah 40:29",
-    "Let us not grow weary in doing good. — Galatians 6:9",
-    "Those who hope in the Lord will renew their strength. — Isaiah 40:31"
-  ]
+  anxiety: [ /* your expanded list of 50+ verses */ ],
+  fear: [ /* ... */ ],
+  // ... all categories
+};
+
+const interpretations = {
+  anxiety: [ /* matching unique interpretations */ ],
+  fear: [ /* ... */ ],
+  // ... all categories
 };
 
 function getDayOfYear(date) {
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date - start;
-  return Math.floor(diff / (1000 * 60 * 60 * 24)) - 1;
+  return Math.floor(diff / 86400000);
 }
 
 function updateDevotional() {
   const date = new Date();
   date.setDate(date.getDate() + dayOffset);
 
-  let dayIndex = getDayOfYear(date);
-  if (dayIndex < 0) dayIndex += 365;
-  if (dayIndex >= 365) dayIndex %= 365;
+  let dayIndex = getDayOfYear(date) % 365;
 
-  const pool = versePools[currentCategory];
-  const verse = pool[dayIndex % pool.length];
+  const verses = versePools[currentCategory] || versePools.anxiety;
+  const interps = interpretations[currentCategory] || ["God meets you tenderly today."];
+
+  const idx = dayIndex % verses.length;
+  const verse = verses[idx];
+  const fullInterp = interps[idx] || "This truth is God's gentle whisper to your soul today.";
 
   document.getElementById("verse").innerText = verse;
-  document.getElementById("interpretation").innerText =
-    `Day ${dayIndex + 1}: This verse meets you exactly where you are today, not where you wish you were.`;
+  document.getElementById("modal-verse").innerText = verse;
+
+  const introText = fullInterp.split('.')[0] + '... (tap for full reflection)';
+  document.getElementById("intro").innerText = introText;
+  document.getElementById("full-interpretation").innerText = fullInterp;
 
   document.getElementById("day-counter").innerText = `Day ${dayIndex + 1} of 365`;
 }
@@ -95,12 +60,20 @@ function jumpDays() {
     dayOffset += value;
     updateDate();
     updateDevotional();
+    document.getElementById("jumpInput").value = "";
   }
 }
 
 function setCategory(category) {
   currentCategory = category;
   updateDevotional();
+}
+
+function openModal() {
+  document.getElementById("modal").style.display = "flex";
+}
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
