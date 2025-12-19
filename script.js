@@ -12,17 +12,66 @@ const versePools = {
     "Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble. — Matthew 6:34",
     "Trust in the Lord with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths. — Proverbs 3:5-6",
     "Fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand. — Isaiah 41:10",
-    "Come to me, all who labor and are heavy laden, and I will give you rest. — Matthew 11:28",
-    // Add more verses for variety...
+    "Come to me, all who labor and are heavy laden, and I will give you rest. — Matthew 11:28"
   ],
   fear: [
     "For God has not given us a spirit of fear, but of power, love, and a sound mind. — 2 Timothy 1:7",
     "The Lord is my light and my salvation—whom shall I fear? — Psalm 27:1",
     "Do not fear, for I am with you. — Isaiah 41:10",
     "Perfect love drives out fear. — 1 John 4:18",
-    // Add more...
+    "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me. — Psalm 23:4",
+    "The Lord is on my side; I will not fear. What can man do to me? — Psalm 118:6",
+    "Have I not commanded you? Be strong and courageous. — Joshua 1:9",
+    "Peace I leave with you; my peace I give to you. — John 14:27",
+    "When I am afraid, I put my trust in you. — Psalm 56:3",
+    "Say to those who have an anxious heart, 'Be strong; fear not!' — Isaiah 35:4"
   ],
-  // Add other categories similarly
+  grief: [
+    "The Lord is close to the brokenhearted and saves the crushed in spirit. — Psalm 34:18",
+    "Blessed are those who mourn, for they shall be comforted. — Matthew 5:4",
+    "He will wipe every tear from their eyes. — Revelation 21:4",
+    "My flesh and my heart may fail, but God is the strength of my heart and my portion forever. — Psalm 73:26",
+    "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
+    "For his anger is but for a moment, and his favor is for a lifetime. Weeping may tarry for the night, but joy comes with the morning. — Psalm 30:5",
+    "The Lord is near to the brokenhearted and saves the crushed in spirit. — Psalm 34:18",
+    "Blessed be the God... of all comfort, who comforts us in all our affliction. — 2 Corinthians 1:3-4"
+  ],
+  sadness: [
+    "Weeping may endure for a night, but joy comes in the morning. — Psalm 30:5",
+    "Why are you downcast, O my soul? Hope in God. — Psalm 42:11",
+    "The joy of the Lord is your strength. — Nehemiah 8:10",
+    "You have turned my mourning into dancing. — Psalm 30:11",
+    "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
+    "Come to me, all who labor and are heavy laden, and I will give you rest. — Matthew 11:28"
+  ],
+  confusion: [
+    "God is not the author of confusion, but of peace. — 1 Corinthians 14:33",
+    "Trust in the Lord with all your heart and lean not on your own understanding. — Proverbs 3:5",
+    "Your word is a lamp to my feet and a light to my path. — Psalm 119:105",
+    "If any of you lacks wisdom, let him ask of God. — James 1:5",
+    "For God gave us a spirit not of fear but of power and love and self-control. — 2 Timothy 1:7"
+  ],
+  loneliness: [
+    "I will never leave you nor forsake you. — Hebrews 13:5",
+    "The Lord is near to all who call on Him. — Psalm 145:18",
+    "Even if my father and mother forsake me, the Lord will receive me. — Psalm 27:10",
+    "When you pass through the waters, I will be with you. — Isaiah 43:2",
+    "Teaching them... And behold, I am with you always, to the end of the age. — Matthew 28:20"
+  ],
+  doubt: [
+    "Lord, I believe; help my unbelief. — Mark 9:24",
+    "If you have faith as small as a mustard seed… nothing will be impossible for you. — Matthew 17:20",
+    "Blessed are those who have not seen and yet believe. — John 20:29",
+    "The Lord is faithful to all His promises. — Psalm 145:13",
+    "Now faith is the assurance of things hoped for, the conviction of things not seen. — Hebrews 11:1"
+  ],
+  weariness: [
+    "Come to me, all who are weary, and I will give you rest. — Matthew 11:28",
+    "He gives strength to the weary. — Isaiah 40:29",
+    "Let us not grow weary in doing good. — Galatians 6:9",
+    "Those who hope in the Lord will renew their strength. They will soar on wings like eagles. — Isaiah 40:31",
+    "My presence will go with you, and I will give you rest. — Exodus 33:14"
+  ]
 };
 
 const interpretations = {
@@ -36,9 +85,66 @@ const interpretations = {
     "Tomorrow's troubles are not yours to bear today. This moment has enough grace for this moment's need.",
     "Our understanding is limited; His is infinite. Acknowledge Him, and watch crooked paths become straight.",
     "God's hand is not weak — it upholds you with righteous strength. You are held.",
-    "Jesus calls the weary not to work harder, but to come closer. True rest is found in His presence.",
+    "Jesus calls the weary not to work harder, but to come closer. True rest is found in His presence."
   ],
-  // Add matching interpretations for other categories
+  fear: [
+    "Fear is not your inheritance. God has given you power, love, and a sound mind — claim them today.",
+    "Darkness cannot stand where God's light shines. He is your salvation — fear has no rightful place.",
+    "Fear asks 'What if?' God answers 'I am with you.' Let His presence silence every doubt.",
+    "Perfect love leaves no room for fear. Rest in the completeness of God's love for you.",
+    "The valley may be dark, but your Shepherd walks it with you. No evil can touch what He protects.",
+    "With God on your side, human threats lose their power. Fear bows to divine alliance.",
+    "Courage is God's command because His presence is guaranteed. Step forward in faith.",
+    "Jesus' peace is not temporary — it is eternal. Receive it and let fear flee.",
+    "Fear loses its grip the moment you place your trust in God.",
+    "Your God is coming with salvation. Let that truth quiet every fearful heart."
+  ],
+  grief: [
+    "God draws nearest when your heart is broken. He is not distant in your pain.",
+    "Mourning is not wasted — Jesus promises comfort to those who grieve.",
+    "One day, every tear will be personally wiped away by God's own hand.",
+    "When everything fails, God remains your strength and eternal portion.",
+    "He doesn't just see your wounds — He binds them with tender healing.",
+    "Joy comes after the night of weeping — His favor lasts a lifetime.",
+    "God is close to the crushed in spirit — He saves and restores.",
+    "He is the Father of mercies and God of all comfort in every affliction."
+  ],
+  sadness: [
+    "Night may bring weeping, but God's dawn always brings joy.",
+    "Your soul has reason to hope — place it fully in God alone.",
+    "True strength is found not in circumstance, but in the joy of the Lord.",
+    "God transforms mourning into dancing — He renews your spirit.",
+    "He heals the brokenhearted and binds up their wounds.",
+    "Jesus calls the heavy-laden to come and find true rest."
+  ],
+  confusion: [
+    "God brings peace, not confusion. Trust in His order today.",
+    "Leaning on limited understanding leads to confusion — acknowledge Him for clarity.",
+    "God's Word lights every step — even when the path feels unclear.",
+    "Wisdom is a gift freely given to those who ask in faith.",
+    "God gives a spirit of power and clear thinking, not fear or confusion."
+  ],
+  loneliness: [
+    "God's promise is unbreakable — He will never leave or forsake you.",
+    "He is near to all who call on Him in truth.",
+    "Even if all others abandon you, the Lord receives you with open arms.",
+    "Through every deep water, He walks with you.",
+    "Jesus promises His presence with you always — to the very end."
+  ],
+  doubt: [
+    "Honest doubt brought to Jesus receives help for unbelief.",
+    "Even small faith can move mountains — God honors what you have.",
+    "Believing without seeing is deeply blessed by God.",
+    "God's faithfulness to His promises removes grounds for doubt.",
+    "Faith is confidence in the unseen — hold fast to God's character."
+  ],
+  weariness: [
+    "Jesus invites the exhausted to find true soul-rest in Him.",
+    "God gives fresh strength to those who feel depleted.",
+    "Persevere in good — your harvest is coming.",
+    "Hope in the Lord brings renewed strength like eagles' wings.",
+    "God's presence brings deep rest — even in the journey."
+  ]
 };
 
 function getDayOfYear(date) {
@@ -63,7 +169,7 @@ function updateDevotional() {
   document.getElementById("verse").innerText = verse;
   document.getElementById("modal-verse").innerText = verse;
 
-  const introText = fullInterp.split('.')[0] + '... (tap for more)';
+  const introText = fullInterp.length > 100 ? fullInterp.substring(0, 100) + '... (tap for full reflection)' : fullInterp;
   document.getElementById("intro").innerText = introText;
   document.getElementById("full-interpretation").innerText = fullInterp;
 
@@ -84,8 +190,11 @@ function changeDay(amount) {
 
 function jumpDays() {
   const value = parseInt(document.getElementById("jumpInput").value, 10);
-  if (!isNaN(value)) {
-    dayOffset += value;
+  if (!isNaN(value) && value >= 1 && value <= 365) {
+    const today = new Date();
+    const yearStart = new Date(today.getFullYear(), 0, 1);
+    const targetDay = new Date(today.getFullYear(), 0, value);
+    dayOffset = Math.floor((targetDay - yearStart) / 86400000);
     updateDate();
     updateDevotional();
     document.getElementById("jumpInput").value = "";
@@ -93,10 +202,14 @@ function jumpDays() {
 }
 
 function setCategory(category) {
-  if (versePools[category]) {
-    currentCategory = category;
-    updateDevotional();
-  }
+  currentCategory = category;
+  toggleMenu(); // Close menu after selection
+  updateDevotional();
+}
+
+function toggleMenu() {
+  document.getElementById("side-menu").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("active");
 }
 
 function openModal() {
