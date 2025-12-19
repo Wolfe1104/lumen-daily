@@ -11,7 +11,7 @@ body {
   background: linear-gradient(rgba(20,10,5,0.85), rgba(40,15,10,0.9));
   position: relative;
   overflow-x: hidden;
-  touch-action: pan-y; /* Allows vertical scroll, enables horizontal swipe */
+  touch-action: pan-y; /* Enables swipe detection */
 }
 
 .background {
@@ -40,6 +40,7 @@ header {
 .title-block {
   flex: 1;
   text-align: center;
+  padding-left: 80px; /* Space for hamburger icon */
 }
 
 .title-block h1 {
@@ -85,10 +86,10 @@ header {
 .arrow:hover { transform: scale(1.25); }
 .arrow svg { width: 100%; height: 100%; fill: #d4af37; }
 
-/* Hamburger button now inside header - no overlap */
+/* Hamburger icon positioned in header without overlapping text */
 .menu-btn {
   position: absolute;
-  top: 35px;
+  top: 40px;
   left: 25px;
   z-index: 1001;
   background: rgba(0,0,0,0.4);
@@ -182,7 +183,7 @@ main {
 
 #intro:hover { color: #d4af37; }
 
-/* Slide Menu - FULLY WORKING with swipe support */
+/* Slide Menu - FULLY WORKING with swipe */
 .side-menu {
   position: fixed;
   top: 0;
@@ -318,4 +319,5 @@ main {
   .menu-btn { width: 55px; height: 55px; top: 30px; left: 20px; }
   .side-menu { width: 280px; left: -300px; }
   .side-menu.open { left: 0; }
+  .title-block { padding-left: 70px; }
 }
