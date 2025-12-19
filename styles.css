@@ -28,23 +28,10 @@ body {
   filter: brightness(0.35) sepia(0.3);
 }
 
-/* Dedicated spacer to force space above "Daily Light" */
-.top-spacer {
-  height: 180px; /* Adjust this value to move "Daily Light" down more or less */
-  flex-shrink: 0;
-}
-
-/* Header now starts after the spacer */
-header {
-  padding: 20px 16px;
-  position: relative;
+/* Title and date now at the bottom in footer */
+footer.title-block {
+  padding: 40px 16px 60px;
   z-index: 10;
-}
-
-.title-block {
-  flex: 1;
-  text-align: center;
-  padding-left: 80px;
 }
 
 .title-block h1 {
@@ -57,14 +44,14 @@ header {
 }
 
 #date {
-  margin: 15px 0 0;
+  margin: 20px 0 0;
   font-size: clamp(1.3rem, 4vw, 1.8rem);
   color: #e6ccb2;
   font-weight: 300;
 }
 
 .nav-arrows {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 0;
   right: 0;
@@ -91,8 +78,8 @@ header {
 .arrow svg { width: 100%; height: 100%; fill: #d4af37; }
 
 .menu-btn {
-  position: absolute;
-  top: 30px;
+  position: fixed;
+  top: 25px;
   left: 25px;
   z-index: 1001;
   background: rgba(0,0,0,0.4);
@@ -186,7 +173,7 @@ main {
 
 #intro:hover { color: #d4af37; }
 
-/* Slide Menu - WORKING */
+/* Slide Menu */
 .side-menu {
   position: fixed;
   top: 0;
@@ -316,11 +303,11 @@ main {
 }
 
 @media (max-width: 600px) {
-  .top-spacer { height: 200px; } /* More space on mobile */
   .arrow { width: 55px; height: 55px; }
   .modal-content { padding: 40px 25px; }
   .search-controls input { width: 170px; font-size: 1rem; }
-  .menu-btn { width: 55px; height: 55px; top: 40px; left: 20px; }
+  .menu-btn { width: 55px; height: 55px; top: 20px; left: 20px; }
   .side-menu { width: 280px; left: -300px; }
   .side-menu.open { left: 0; }
+  footer.title-block { padding: 60px 16px 80px; }
 }
