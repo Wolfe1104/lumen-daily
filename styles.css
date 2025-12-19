@@ -6,8 +6,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%;
-  overflow: hidden;
 }
 
 body {
@@ -16,75 +14,71 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
 }
 
-/* BACKGROUND — VISIBLY SMALLER */
+/* BACKGROUND */
 .background {
   position: fixed;
   inset: 0;
-  background-image: url("file_00000000b05871f8b90495cba20701df.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: contain; /* THIS forces the image smaller */
-  filter: brightness(0.35);
+  background: url("file_00000000b05871f8b90495cba20701df.png") no-repeat center center / cover;
+  filter: brightness(0.4);
   z-index: -1;
 }
 
-/* HEADER — HARD CENTERING */
+/* HEADER */
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: env(safe-area-inset-top) 12px 10px;
+  justify-content: space-between;
+  padding: 12px 16px;
   width: 100%;
 }
 
-/* TITLE — NOTICEABLY BIGGER */
 .title-block {
+  flex: 1;
   text-align: center;
 }
 
 .title-block h1 {
   margin: 0;
-  font-size: clamp(2.6rem, 8vw, 3.6rem); /* BIG */
-  font-weight: 800;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
 }
 
 #date,
 #day-counter {
   margin: 4px 0;
-  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 /* ARROWS */
 .arrow {
-  font-size: clamp(2rem, 7vw, 2.8rem);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   background: none;
   border: none;
   color: white;
   cursor: pointer;
+  padding: 0 10px;
 }
 
 /* JUMP CONTROLS */
 .jump-controls {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   padding: 8px 0;
 }
 
 .jump-controls input {
-  width: 100px;
-  padding: 8px;
-  font-size: 1.1rem;
+  width: 90px;
+  padding: 6px;
+  font-size: 1rem;
 }
 
 .jump-controls button {
-  padding: 8px 16px;
-  font-size: 1.1rem;
+  padding: 6px 14px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 /* MAIN */
@@ -93,20 +87,19 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding: 16px;
   max-width: 900px;
   margin: 0 auto;
 }
 
 #verse {
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
   margin-bottom: 12px;
 }
 
 #interpretation {
-  font-size: clamp(1.05rem, 3.4vw, 1.3rem);
-  line-height: 1.55;
+  font-size: clamp(1rem, 2.6vw, 1.2rem);
+  line-height: 1.5;
 }
 
 /* NAV */
@@ -114,18 +107,27 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  padding: 12px env(safe-area-inset-bottom) env(safe-area-inset-bottom);
+  gap: 8px;
+  padding: 12px;
 }
 
 nav button {
-  padding: 10px 14px;
-  font-size: clamp(0.85rem, 3vw, 1.05rem);
+  padding: 8px 12px;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  cursor: pointer;
 }
 
 /* MOBILE */
-@media (max-width: 480px) {
-  .title-block h1 {
-    font-size: 2.4rem;
+@media (max-width: 600px) {
+  header {
+    padding: 10px;
+  }
+
+  .arrow {
+    padding: 0 6px;
+  }
+
+  main {
+    padding: 12px;
   }
 }
