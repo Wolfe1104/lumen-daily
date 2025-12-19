@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -26,7 +25,7 @@ body {
   position: fixed;
   inset: 0;
   background: url("file_00000000b05871f8b90495cba20701df.png") no-repeat center center;
-  background-size: cover;
+  background-size: 90%; /* smaller than full cover */
   filter: brightness(0.45);
   z-index: -1;
 }
@@ -40,19 +39,21 @@ header {
   width: 100%;
 }
 
+/* TITLE */
 .title-block {
   text-align: center;
 }
 
 .title-block h1 {
   margin: 0;
-  font-size: clamp(1.4rem, 4.5vw, 2.4rem);
+  font-size: clamp(2rem, 6vw, 3rem); /* bigger title */
+  font-weight: 700;
 }
 
 #date,
 #day-counter {
   margin: 2px 0;
-  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-size: clamp(0.9rem, 2.6vw, 1.05rem);
 }
 
 /* ARROWS */
@@ -99,12 +100,12 @@ main {
 }
 
 #verse {
-  font-size: clamp(1.05rem, 3.8vw, 1.6rem);
+  font-size: clamp(1.1rem, 3.9vw, 1.7rem);
   margin-bottom: 10px;
 }
 
 #interpretation {
-  font-size: clamp(0.95rem, 3.2vw, 1.2rem);
+  font-size: clamp(1rem, 3.3vw, 1.25rem);
   line-height: 1.5;
   max-width: 100%;
 }
