@@ -10,12 +10,12 @@
 <body>
   <div class="background"></div>
 
-  <header>
-    <!-- Hamburger in header, left-aligned, no overlap -->
-    <button class="menu-btn" onclick="toggleMenu()">
-      <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" fill="#d4af37"/></svg>
-    </button>
+  <!-- Hamburger Menu Button -->
+  <button class="menu-btn" onclick="toggleMenu()">
+    <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" fill="#d4af37"/></svg>
+  </button>
 
+  <header>
     <div class="title-block">
       <h1>Daily Light</h1>
       <p id="date"></p>
@@ -26,51 +26,4 @@
         <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
       </button>
       <button class="arrow right" onclick="changeDay(1)">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <section class="search-controls">
-    <input type="number" id="jumpInput" placeholder="Enter day number (1-365)">
-    <button onclick="jumpDays()">Search Day</button>
-  </section>
-
-  <main>
-    <h2 id="verse" onclick="openModal()"></h2>
-    <p id="intro" onclick="openModal()"></p>
-  </main>
-
-  <!-- Slide Menu from Left -->
-  <div id="side-menu" class="side-menu">
-    <div class="menu-header">
-      <h3>Choose Focus</h3>
-      <span class="close-menu" onclick="toggleMenu()">&times;</span>
-    </div>
-    <nav class="menu-nav">
-      <button onclick="setCategory('anxiety')">Anxiety</button>
-      <button onclick="setCategory('fear')">Fear</button>
-      <button onclick="setCategory('grief')">Grief</button>
-      <button onclick="setCategory('sadness')">Sadness</button>
-      <button onclick="setCategory('confusion')">Confusion</button>
-      <button onclick="setCategory('loneliness')">Loneliness</button>
-      <button onclick="setCategory('doubt')">Doubt</button>
-      <button onclick="setCategory('weariness')">Weariness</button>
-    </nav>
-  </div>
-
-  <!-- Dark Overlay -->
-  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
-
-  <!-- Full Interpretation Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modal-verse"></h2>
-      <p id="full-interpretation"></p>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-
