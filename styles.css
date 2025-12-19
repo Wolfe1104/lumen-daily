@@ -1,4 +1,139 @@
-* {
+* {* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* BACKGROUND */
+.background {
+  position: fixed;
+  inset: 0;
+  background: url("file_00000000b05871f8b90495cba20701df.png") no-repeat center center;
+  background-size: 90%; /* smaller than full cover */
+  filter: brightness(0.45);
+  z-index: -1;
+}
+
+/* HEADER */
+header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: env(safe-area-inset-top) 12px 10px;
+  width: 100%;
+}
+
+/* TITLE */
+.title-block {
+  text-align: center;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3rem); /* bigger title */
+  font-weight: 700;
+}
+
+#date,
+#day-counter {
+  margin: 2px 0;
+  font-size: clamp(0.9rem, 2.6vw, 1.05rem);
+}
+
+/* ARROWS */
+.arrow {
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+/* JUMP CONTROLS */
+.jump-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.jump-controls input {
+  width: 90px;
+  padding: 6px;
+  font-size: 1rem;
+}
+
+.jump-controls button {
+  padding: 6px 14px;
+  font-size: 1rem;
+}
+
+/* MAIN CONTENT */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#verse {
+  font-size: clamp(1.1rem, 3.9vw, 1.7rem);
+  margin-bottom: 10px;
+}
+
+#interpretation {
+  font-size: clamp(1rem, 3.3vw, 1.25rem);
+  line-height: 1.5;
+  max-width: 100%;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px env(safe-area-inset-bottom) env(safe-area-inset-bottom);
+}
+
+nav button {
+  padding: 8px 12px;
+  font-size: clamp(0.8rem, 2.8vw, 1rem);
+}
+
+/* SMALL SCREENS */
+@media (max-width: 480px) {
+  main {
+    padding: 10px;
+  }
+
+  #interpretation {
+    line-height: 1.4;
+  }
+}
   box-sizing: border-box;
 }
 
