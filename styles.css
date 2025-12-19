@@ -28,8 +28,9 @@ body {
   filter: brightness(0.35) sepia(0.3);
 }
 
+/* Increased top padding to push "Daily Light" down a couple of lines */
 header {
-  padding: 80px 16px 40px; /* Increased top padding to push "Daily Light" down */
+  padding: 120px 16px 40px; /* More top space */
   position: relative;
   z-index: 10;
 }
@@ -58,7 +59,7 @@ header {
 
 .nav-arrows {
   position: absolute;
-  top: 55%; /* Adjusted to stay centered with new header height */
+  top: 60%; /* Adjusted for new header height */
   left: 0;
   right: 0;
   display: flex;
@@ -85,7 +86,7 @@ header {
 
 .menu-btn {
   position: absolute;
-  top: 50px; /* Raised slightly to align with new spacing */
+  top: 60px; /* Moved down to match new spacing */
   left: 25px;
   z-index: 1001;
   background: rgba(0,0,0,0.4);
@@ -179,7 +180,7 @@ main {
 
 #intro:hover { color: #d4af37; }
 
-/* Slide Menu - WORKING */
+/* Slide Menu */
 .side-menu {
   position: fixed;
   top: 0;
@@ -252,68 +253,4 @@ main {
 /* Overlay */
 .overlay {
   display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 999;
-}
-
-.overlay.active {
-  display: block;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.9);
-  align-items: center;
-  justify-content: center;
-  z-index: 1100;
-  padding: 20px;
-}
-
-.modal-content {
-  position: relative;
-  background: rgba(40,20,10,0.95);
-  padding: 60px 40px;
-  max-width: 950px;
-  border-radius: 25px;
-  border: 3px solid #d4af37;
-  box-shadow: 0 0 60px rgba(212,175,55,0.7);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.close {
-  position: absolute;
-  top: 25px;
-  right: 35px;
-  font-size: 4rem;
-  color: #d4af37;
-  cursor: pointer;
-  line-height: 1;
-  transition: 0.3s;
-}
-
-.close:hover {
-  transform: rotate(90deg) scale(1.2);
-}
-
-#full-interpretation {
-  font-size: 1.6rem;
-  line-height: 2;
-  color: #f5e6d3;
-  font-style: italic;
-}
-
-@media (max-width: 600px) {
-  .arrow { width: 55px; height: 55px; }
-  .modal-content { padding: 40px 25px; }
-  .search-controls input { width: 170px; font-size: 1rem; }
-  .menu-btn { width: 55px; height: 55px; top: 40px; left: 20px; }
-  .side-menu { width: 280px; left: -300px; }
-  .side-menu.open { left: 0; }
-  header { padding: 100px 16px 40px; } /* Extra space on mobile */
-}
+  position:
