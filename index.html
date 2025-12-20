@@ -6,8 +6,9 @@
   <title>Daily Light</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100%; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; width: 100%; }
+
     body {
       font-family: 'Playfair Display', serif;
       color: #f5e6d3;
@@ -16,190 +17,373 @@
       flex-direction: column;
       min-height: 100vh;
       background: linear-gradient(rgba(20,10,5,0.85), rgba(40,15,10,0.9));
+      position: relative;
+      overflow-x: hidden;
+      touch-action: pan-y;
     }
+
     .background {
-      position: fixed; inset: 0;
-      background: url("file_00000000b05871f8b90495cba20701df.png") no-repeat center center / cover;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -2;
+      background: url("https://images.unsplash.com/photo-1506905925346-41a9d0e6f2a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") no-repeat center center / cover;
       filter: brightness(0.35) sepia(0.3);
-      z-index: -1;
     }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 16px;
+
+    footer.title-block {
+      padding: 40px 16px 60px;
+      z-index: 10;
     }
+
     .title-block h1 {
       margin: 0;
       font-family: 'Cinzel Decorative', cursive;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      color: #d4af37; /* Divine gold */
-      text-shadow: 0 0 15px rgba(212,175,55,0.6);
+      font-size: clamp(2.8rem, 9vw, 5rem);
+      color: #d4af37;
+      text-shadow: 0 0 20px rgba(212,175,55,0.7);
+      letter-spacing: 2px;
     }
+
     #date, #day-counter {
-      margin: 8px 0;
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      color: #e6ccb2; /* Soft brownish red */
+      margin: 20px 0 0;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      color: #e6ccb2;
+      font-weight: 300;
     }
+
+    .nav-arrows {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      z-index: 11;
+    }
+
     .arrow {
-      width: 60px; height: 60px;
+      width: 65px;
+      height: 65px;
       background: none;
       border: none;
       cursor: pointer;
-      filter: drop-shadow(0 0 10px #d4af37);
-      transition: transform 0.3s;
+      filter: drop-shadow(0 0 12px #d4af37);
+      transition: transform 0.3s ease;
+      pointer-events: all;
     }
-    .arrow:hover { transform: scale(1.15); }
+
+    .arrow:hover { transform: scale(1.25); }
     .arrow svg { width: 100%; height: 100%; fill: #d4af37; }
-    .jump-controls {
+
+    .menu-btn {
+      position: fixed;
+      top: 25px;
+      left: 25px;
+      z-index: 1001;
+      background: rgba(0,0,0,0.4);
+      border: 2px solid #d4af37;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .menu-btn:hover {
+      background: #d4af37;
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .search-controls {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      padding: 10px 0;
+      gap: 15px;
+      padding: 20px 0;
+      z-index: 10;
     }
-    .jump-controls input {
-      width: 120px;
-      padding: 10px;
-      border-radius: 20px;
+
+    .search-controls input {
+      width: 220px;
+      padding: 14px;
+      border-radius: 30px;
       border: 1px solid #d4af37;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.4);
       color: white;
+      font-size: 1.1rem;
+      text-align: center;
     }
-    .jump-controls button {
-      padding: 10px 20px;
-      border-radius: 20px;
+
+    .search-controls input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .search-controls button {
+      padding: 14px 32px;
+      border-radius: 30px;
       background: #8b4513;
       color: #d4af37;
-      border: none;
+      border: 1px solid #d4af37;
       cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: 0.3s;
     }
+
+    .search-controls button:hover {
+      background: #d4af37;
+      color: #3f2204;
+    }
+
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 20px;
-      max-width: 1000px;
+      padding: 40px 20px;
+      max-width: 1100px;
       margin: 0 auto;
+      z-index: 10;
     }
+
     #verse {
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
-      margin: 20px 0;
-      color: #e6ccb2; /* Brownish red */
+      font-size: clamp(1.6rem, 5.5vw, 2.8rem);
+      margin: 40px 0;
+      color: #e6ccb2;
       cursor: pointer;
-      transition: all 0.4s;
+      transition: all 0.5s ease;
+      line-height: 1.7;
     }
-    #verse:hover { color: #d4af37; text-shadow: 0 0 20px rgba(212,175,55,0.8); }
-    #intro {
-      font-size: clamp(1.1rem, 3vw, 1.6rem);
-      color: #c19a6b; /* Matching warm tone */
-      margin: 30px 0;
-      cursor: pointer;
-      max-width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    #intro:hover { color: #d4af37; }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      padding: 20px;
-    }
-    nav button {
-      padding: 10px 18px;
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      background: rgba(139,69,19,0.4);
+
+    #verse:hover {
       color: #d4af37;
-      border: 1px solid #d4af37;
-      border-radius: 25px;
+      text-shadow: 0 0 25px rgba(212,175,55,0.9);
+      transform: scale(1.02);
+    }
+
+    #intro {
+      font-size: clamp(1.3rem, 4.5vw, 2rem);
+      color: #c19a6b;
+      margin: 50px auto;
       cursor: pointer;
+      max-width: 90%;
+      line-height: 1.9;
+      transition: color 0.4s;
+    }
+
+    #intro:hover { color: #d4af37; }
+
+    /* Slide Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 300px;
+      height: 100vh;
+      background: rgba(25,12,6,0.98);
+      z-index: 1000;
+      transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      padding: 30px 20px;
+      border-right: 4px solid #d4af37;
+      box-shadow: 15px 0 40px rgba(0,0,0,0.8);
+      overflow-y: auto;
+    }
+
+    .side-menu.open {
+      left: 0;
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 50px;
+      color: #d4af37;
+    }
+
+    .menu-header h3 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .close-menu {
+      font-size: 3.5rem;
+      cursor: pointer;
+      line-height: 1;
       transition: 0.3s;
     }
-    nav button:hover {
+
+    .close-menu:hover {
+      transform: rotate(90deg);
+    }
+
+    .menu-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .menu-nav button {
+      padding: 18px;
+      font-size: 1.3rem;
+      background: rgba(139,69,19,0.3);
+      color: #d4af37;
+      border: 2px solid #d4af37;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-weight: 500;
+    }
+
+    .menu-nav button:hover {
       background: #d4af37;
       color: #3f2204;
+      transform: translateX(12px) scale(1.05);
+      box-shadow: 0 0 20px rgba(212,175,55,0.5);
     }
+
+    /* Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.9);
       align-items: center;
       justify-content: center;
-      z-index: 100;
+      z-index: 1100;
       padding: 20px;
     }
+
     .modal-content {
-      background: rgba(40,20,10,0.9);
-      padding: 40px;
-      max-width: 900px;
-      border-radius: 20px;
-      border: 2px solid #d4af37;
-      box-shadow: 0 0 40px rgba(212,175,55,0.5);
+      position: relative;
+      background: rgba(40,20,10,0.95);
+      padding: 60px 40px;
+      max-width: 950px;
+      border-radius: 25px;
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 60px rgba(212,175,55,0.7);
       max-height: 90vh;
       overflow-y: auto;
     }
+
     .close {
       position: absolute;
-      top: 20px; right: 30px;
-      font-size: 3rem;
+      top: 25px;
+      right: 35px;
+      font-size: 4rem;
       color: #d4af37;
       cursor: pointer;
+      line-height: 1;
+      transition: 0.3s;
     }
+
+    .close:hover {
+      transform: rotate(90deg) scale(1.2);
+    }
+
+    #modal-verse {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 40px;
+      color: #e6ccb2;
+      line-height: 1.7;
+    }
+
     #full-interpretation {
-      font-size: 1.4rem;
-      line-height: 1.8;
+      font-size: 1.6rem;
+      line-height: 2;
       color: #f5e6d3;
       font-style: italic;
     }
+
     @media (max-width: 600px) {
-      .arrow { width: 50px; height: 50px; }
-      .modal-content { padding: 20px; }
+      .arrow { width: 55px; height: 55px; }
+      .modal-content { padding: 40px 25px; }
+      .search-controls input { width: 170px; font-size: 1rem; }
+      .menu-btn { width: 55px; height: 55px; top: 20px; left: 20px; }
+      .side-menu { width: 280px; left: -300px; }
+      .side-menu.open { left: 0; }
+      footer.title-block { padding: 60px 16px 80px; }
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
 
-  <header>
-    <button class="arrow" onclick="changeDay(-1)">
+  <!-- Menu Button (Hamburger) -->
+  <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">
+    <svg viewBox="0 0 24 24" width="36" height="36">
+      <path fill="#d4af37" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+    </svg>
+  </button>
+
+  <!-- Navigation Arrows -->
+  <div class="nav-arrows">
+    <button class="arrow" onclick="changeDay(-1)" aria-label="Previous day">
       <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
     </button>
-
-    <div class="title-block">
-      <h1>Daily Light</h1>
-      <p id="date"></p>
-      <p id="day-counter"></p>
-    </div>
-
-    <button class="arrow" onclick="changeDay(1)">
+    <button class="arrow" onclick="changeDay(1)" aria-label="Next day">
       <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
     </button>
-  </header>
+  </div>
 
-  <section class="jump-controls">
-    <input type="number" id="jumpInput" placeholder="Jump days">
-    <button onclick="jumpDays()">Jump</button>
+  <!-- Jump to Day Controls -->
+  <section class="search-controls">
+    <input type="number" id="jumpInput" min="1" max="365" placeholder="Day of year (1-365)">
+    <button onclick="jumpDays()">Go to Day</button>
   </section>
 
+  <!-- Main Content -->
   <main>
     <h2 id="verse" onclick="openModal()"></h2>
     <p id="intro" onclick="openModal()"></p>
   </main>
 
-  <nav>
-    <button onclick="setCategory('anxiety')">Anxiety</button>
-    <button onclick="setCategory('fear')">Fear</button>
-    <button onclick="setCategory('grief')">Grief</button>
-    <button onclick="setCategory('sadness')">Sadness</button>
-    <button onclick="setCategory('confusion')">Confusion</button>
-    <button onclick="setCategory('loneliness')">Loneliness</button>
-    <button onclick="setCategory('doubt')">Doubt</button>
-    <button onclick="setCategory('weariness')">Weariness</button>
-  </nav>
+  <!-- Title & Date at Bottom -->
+  <footer class="title-block">
+    <h1>Daily Light</h1>
+    <p id="date"></p>
+    <p id="day-counter"></p>
+  </footer>
+
+  <!-- Side Menu -->
+  <aside id="side-menu" class="side-menu">
+    <div class="menu-header">
+      <h3>Categories</h3>
+      <span class="close-menu" onclick="toggleMenu()">&times;</span>
+    </div>
+    <nav class="menu-nav">
+      <button onclick="setCategory('anxiety')">Anxiety</button>
+      <button onclick="setCategory('fear')">Fear</button>
+      <button onclick="setCategory('grief')">Grief</button>
+      <button onclick="setCategory('sadness')">Sadness</button>
+      <button onclick="setCategory('confusion')">Confusion</button>
+      <button onclick="setCategory('loneliness')">Loneliness</button>
+      <button onclick="setCategory('doubt')">Doubt</button>
+      <button onclick="setCategory('weariness')">Weariness</button>
+    </nav>
+  </aside>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
   <!-- Modal -->
   <div id="modal" class="modal">
@@ -214,68 +398,191 @@
     let dayOffset = 0;
     let currentCategory = "anxiety";
 
-    // Expanded to many unique verses per category (50+ each for full year cycle without heavy repetition)
+    // Touch swipe detection
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 60;
+
     const versePools = {
       anxiety: [
-        "Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your minds in Christ Jesus. — Philippians 4:6-7",
-        "Casting all your anxieties on him, because he cares for you. — 1 Peter 5:7",
-        "Peace I leave with you; my peace I give to you. Not as the world gives do I give to you. Let not your hearts be troubled, neither let them be afraid. — John 14:27",
-        "For God gave us a spirit not of fear but of power and love and self-control. — 2 Timothy 1:7",
-        "Cast your burden on the Lord, and he will sustain you; he will never permit the righteous to be moved. — Psalm 55:22",
+        "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus. — Philippians 4:6-7",
+        "Cast all your anxiety on him because he cares for you. — 1 Peter 5:7",
+        "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid. — John 14:27",
+        "For God has not given us a spirit of fear, but of power and of love and of self-discipline. — 2 Timothy 1:7",
+        "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken. — Psalm 55:22",
         "When anxiety was great within me, your consolation brought me joy. — Psalm 94:19",
-        "Humble yourselves, therefore, under the mighty hand of God so that at the proper time he may exalt you, casting all your anxieties on him, because he cares for you. — 1 Peter 5:6-7",
-        "Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go. — Joshua 1:9",
-        "Therefore do not be anxious about tomorrow, for tomorrow will be anxious for itself. Sufficient for the day is its own trouble. — Matthew 6:34",
-        "Trust in the Lord with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths. — Proverbs 3:5-6",
-        "Fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you, I will uphold you with my righteous right hand. — Isaiah 41:10",
-        "Anxiety in a man's heart weighs him down, but a good word makes him glad. — Proverbs 12:25",
+        "Humble yourselves, therefore, under God’s mighty hand, that he may lift you up in due time. Cast all your anxiety on him because he cares for you. — 1 Peter 5:6-7",
+        "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go. — Joshua 1:9",
+        "Therefore do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own. — Matthew 6:34",
+        "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight. — Proverbs 3:5-6",
+        "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand. — Isaiah 41:10",
+        "Anxiety weighs down the heart, but a kind word cheers it up. — Proverbs 12:25",
         "When I am afraid, I put my trust in you. — Psalm 56:3",
-        "Come to me, all who labor and are heavy laden, and I will give you rest. — Matthew 11:28",
-        "I sought the Lord, and he answered me and delivered me from all my fears. — Psalm 34:4",
-        "Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff, they comfort me. — Psalm 23:4",
-        "You keep him in perfect peace whose mind is stayed on you, because he trusts in you. — Isaiah 26:3",
-        // Add 30+ more unique anxiety-related verses here for full coverage...
+        "Come to me, all you who are weary and burdened, and I will give you rest. — Matthew 11:28",
+        "I sought the Lord, and he answered me; he delivered me from all my fears. — Psalm 34:4",
+        "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me. — Psalm 23:4",
+        "You will keep in perfect peace those whose minds are steadfast, because they trust in you. — Isaiah 26:3",
+        "The Lord is close to the brokenhearted and saves those who are crushed in spirit. — Psalm 34:18",
+        "Do not worry about your life, what you will eat or drink; or about your body, what you will wear. Is not life more than food, and the body more than clothes? — Matthew 6:25",
+        "Humble yourselves before the Lord, and he will lift you up. — James 4:10"
       ],
-      // Repeat similar expansion for fear, grief, sadness, confusion, loneliness, doubt, weariness
+      fear: [
+        "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand. — Isaiah 41:10",
+        "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go. — Joshua 1:9",
+        "For God has not given us a spirit of fear, but of power and of love and of self-discipline. — 2 Timothy 1:7",
+        "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me. — Psalm 23:4",
+        "The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid? — Psalm 27:1",
+        "Peace I leave with you; my peace I give you... Do not let your hearts be troubled and do not be afraid. — John 14:27",
+        "I sought the Lord, and he answered me; he delivered me from all my fears. — Psalm 34:4",
+        "Be strong and courageous. Do not be afraid or terrified because of them, for the Lord your God goes with you; he will never leave you nor forsake you. — Deuteronomy 31:6",
+        "The fear of the Lord leads to life; then one rests content, untouched by trouble. — Proverbs 19:23",
+        "When I am afraid, I put my trust in you. — Psalm 56:3",
+        "There is no fear in love. But perfect love drives out fear... — 1 John 4:18",
+        "God is our refuge and strength, an ever-present help in trouble. Therefore we will not fear... — Psalm 46:1-2"
+      ],
+      grief: [
+        "The Lord is close to the brokenhearted and saves those who are crushed in spirit. — Psalm 34:18",
+        "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
+        "Blessed are those who mourn, for they will be comforted. — Matthew 5:4",
+        "My flesh and my heart may fail, but God is the strength of my heart and my portion forever. — Psalm 73:26",
+        "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain... — Revelation 21:4",
+        "Cast your cares on the Lord and he will sustain you... — Psalm 55:22",
+        "The Lord is a refuge for the oppressed, a stronghold in times of trouble. — Psalm 9:9",
+        "Praise be to the God... who comforts us in all our troubles... — 2 Corinthians 1:3-4"
+      ],
+      sadness: [
+        "The Lord is close to the brokenhearted... — Psalm 34:18",
+        "Come to me, all you who are weary and burdened, and I will give you rest. — Matthew 11:28",
+        "You turned my wailing into dancing; you removed my sackcloth and clothed me with joy. — Psalm 30:11",
+        "Weeping may stay for the night, but rejoicing comes in the morning. — Psalm 30:5",
+        "Do not grieve, for the joy of the Lord is your strength. — Nehemiah 8:10",
+        "He heals the brokenhearted... — Psalm 147:3"
+      ],
+      confusion: [
+        "Trust in the Lord with all your heart and lean not on your own understanding... — Proverbs 3:5-6",
+        "For God is not a God of confusion but of peace. — 1 Corinthians 14:33",
+        "If any of you lacks wisdom, you should ask God, who gives generously... — James 1:5",
+        "The Lord will guide you always... — Isaiah 58:11",
+        "I will instruct you and teach you in the way you should go; I will counsel you with my loving eye on you. — Psalm 32:8"
+      ],
+      loneliness: [
+        "Be strong and courageous... for the Lord your God goes with you; he will never leave you nor forsake you. — Deuteronomy 31:6",
+        "The Lord himself goes before you and will be with you... Do not be afraid; do not be discouraged. — Deuteronomy 31:8",
+        "God sets the lonely in families... — Psalm 68:6",
+        "Never will I leave you; never will I forsake you. — Hebrews 13:5",
+        "I am with you always, to the very end of the age. — Matthew 28:20"
+      ],
+      doubt: [
+        "Immediately the father of the child cried out and said, 'I believe; help my unbelief!' — Mark 9:24",
+        "Trust in the Lord with all your heart... — Proverbs 3:5-6",
+        "Jesus replied, 'Truly I tell you, if you have faith and do not doubt... you can say to this mountain, ‘Go, throw yourself into the sea,’ and it will be done.' — Matthew 21:21",
+        "Now faith is confidence in what we hope for and assurance about what we do not see. — Hebrews 11:1"
+      ],
+      weariness: [
+        "Come to me, all you who are weary and burdened, and I will give you rest. — Matthew 11:28",
+        "But those who hope in the Lord will renew their strength. They will soar on wings like eagles... — Isaiah 40:31",
+        "The Lord gives strength to the weary and increases the power of the weak. — Isaiah 40:29",
+        "Do not grow weary in doing good... — Galatians 6:9",
+        "He gives strength to the weary... — Isaiah 40:29"
+      ]
     };
 
-    // Unique profound interpretations (one per verse)
     const interpretations = {
       anxiety: [
-        "Anxiety whispers that you must control everything to be safe. This verse invites you to release control through prayer, receiving a peace that defies logic—guarding your heart like a heavenly sentinel.",
-        "Imagine throwing a heavy backpack onto Someone infinitely stronger. He doesn't just carry it—He cares for *you*, the person behind the worry.",
-        "The peace Jesus gives isn't fragile like the world's—it's rooted in His victory. Let your heart rest in that unchanging gift today.",
-        "Fear distorts; God's Spirit restores power, love, and clear thinking. You are equipped for this moment.",
-        "Your burdens aren't meant to be carried alone. The Lord sustains—He holds you steady when everything shakes.",
-        "When anxiety multiplies, God's comfort doesn't just match it— it overflows, turning sorrow into unexpected joy.",
-        "Humility opens the door for God's timing. Cast your worries like a net into His hands; He will lift you higher than you imagine.",
-        "Courage isn't self-made—it's born from knowing God walks every step with you.",
-        "Tomorrow's worries are future grace thieves. Today has enough mercy for today's load.",
-        "Leaning on limited understanding exhausts; acknowledging Him aligns your path with divine direction.",
-        "God's grip is unbreakable—He upholds you with righteousness, not your strength.",
-        "Anxiety is heavy; God's Word is the uplifting encouragement that lightens the load.",
-        "Fear flees when trust takes root. Declare your dependence today.",
-        "Jesus calls the burdened not to try harder, but to come closer—for true rest.",
-        "Seeking God first dissolves fear; His answer is deliverance wrapped in presence.",
-        "The darkest valley becomes sacred ground when the Shepherd leads.",
-        "Perfect peace isn't absence of storms—it's a mind anchored in God's trustworthiness.",
-        // Match length to verses...
+        "Anxiety often feels like an uncontrollable storm, but this verse reminds us to hand every worry to God through prayer. In return, He guards our hearts with a peace that defies human logic.",
+        "God invites us to cast our anxieties onto Him—not because our problems disappear, but because He deeply cares for us personally.",
+        "Jesus offers a peace unlike anything the world can provide. It's rooted in His eternal presence, freeing us from troubled hearts.",
+        "Fear is not from God. Instead, He equips us with power, love, and a sound mind to face every challenge.",
+        "We aren't meant to carry burdens alone. God sustains us, keeping us steady amid life's shakes.",
+        "Even when anxiety overwhelms, God's comfort can overflow, transforming sorrow into joy.",
+        "True humility involves casting worries on God, trusting His perfect timing to lift us up.",
+        "Courage comes from God's constant presence—He walks with us every step.",
+        "Worrying about tomorrow steals today's joy. Focus on God's sufficient grace for right now.",
+        "Our limited understanding can exhaust us, but submitting to God straightens our path.",
+        "God's hand upholds us with unbreakable righteousness, not our own effort.",
+        "Anxiety is heavy, but encouraging words from God lighten the heart.",
+        "Fear loses power when we actively place our trust in God.",
+        "Jesus calls the weary to come close for true soul-rest.",
+        "Seeking God dissolves fears; His response is deliverance and presence.",
+        "In the darkest valleys, the Shepherd's guidance brings comfort.",
+        "Steadfast trust in God brings perfect peace amid chaos.",
+        "God draws near to the brokenhearted, saving those crushed in spirit.",
+        "Life is more than material worries—God provides for His creation.",
+        "Humility before God leads to His uplifting strength."
       ],
-      // Full unique interpretations for all categories
+      fear: [
+        "God's presence banishes fear—He strengthens and upholds us personally.",
+        "True courage is commanded by God, rooted in His unwavering companionship.",
+        "Fear is not God's gift; He gives power, love, and clarity instead.",
+        "No evil can touch us when the Shepherd is near.",
+        "The Lord is our light, salvation, and stronghold—nothing to fear.",
+        "Jesus' peace calms troubled hearts in any circumstance.",
+        "Seeking God brings deliverance from every fear.",
+        "God's presence means we never face anything alone.",
+        "Fearing God brings true life and contentment.",
+        "Trust in God overcomes fear in the moment.",
+        "God's perfect love casts out all fear.",
+        "God is our refuge—trouble cannot shake us."
+      ],
+      grief: [
+        "God is intimately close to the brokenhearted, offering salvation for crushed spirits.",
+        "He personally heals wounds and binds up the broken.",
+        "Mourning brings divine comfort as a promise.",
+        "When heart and flesh fail, God remains our eternal strength.",
+        "Ultimate hope: God will end all mourning forever.",
+        "Cast grief on Him—He sustains without fail.",
+        "God is a refuge in oppressive times of trouble.",
+        "The God of comfort meets us in our pain to comfort others."
+      ],
+      sadness: [
+        "God draws near in sadness, close to the brokenhearted.",
+        "Jesus offers rest for weary souls.",
+        "God transforms deep sorrow into joy and dancing.",
+        "Joy follows seasons of weeping.",
+        "The Lord's joy becomes our strength amid grief.",
+        "He heals and binds broken hearts."
+      ],
+      confusion: [
+        "Don't rely on limited understanding—trust God to direct paths.",
+        "God brings peace, not confusion.",
+        "Ask boldly for wisdom; God gives generously.",
+        "God guides continually.",
+        "He instructs and counsels with loving care."
+      ],
+      loneliness: [
+        "God never leaves or forsakes us.",
+        "He goes ahead and stays with us always.",
+        "God places the lonely in community.",
+        "His promise: Never alone.",
+        "Jesus' constant presence to the end."
+      ],
+      doubt: [
+        "Honest doubt meets Jesus' help for unbelief.",
+        "Trust beyond understanding leads to straight paths.",
+        "Faith without doubt moves mountains.",
+        "Faith assures us of unseen hopes."
+      ],
+      weariness: [
+        "Jesus gives true rest to the burdened.",
+        "Hope in God renews strength like eagles.",
+        "He empowers the weak and weary.",
+        "Persist in good—harvest comes.",
+        "God strengthens the exhausted."
+      ]
     };
 
     function getDayOfYear(date) {
       const start = new Date(date.getFullYear(), 0, 0);
       const diff = date - start;
-      return Math.floor(diff / 86400000);
+      const oneDay = 1000 * 60 * 60 * 24;
+      return Math.floor(diff / oneDay);
     }
 
     function updateDevotional() {
       const date = new Date();
       date.setDate(date.getDate() + dayOffset);
 
-      let dayIndex = getDayOfYear(date);
-      dayIndex = dayIndex % 365;
+      const dayIndex = (getDayOfYear(date) - 1) % 365; // 0–364
 
       const verses = versePools[currentCategory] || versePools.anxiety;
       const interps = interpretations[currentCategory] || ["God meets you tenderly today."];
@@ -287,7 +594,9 @@
       document.getElementById("verse").innerText = verse;
       document.getElementById("modal-verse").innerText = verse;
 
-      const introText = fullInterp.split('.')[0] + '... (tap for full reflection)';
+      const introText = fullInterp.length > 140 
+        ? fullInterp.substring(0, 140).trim() + '... (tap for full reflection)'
+        : fullInterp + ' (tap for full reflection)';
       document.getElementById("intro").innerText = introText;
       document.getElementById("full-interpretation").innerText = fullInterp;
 
@@ -297,7 +606,12 @@
     function updateDate() {
       const date = new Date();
       date.setDate(date.getDate() + dayOffset);
-      document.getElementById("date").innerText = date.toDateString();
+      document.getElementById("date").innerText = date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
     }
 
     function changeDay(amount) {
@@ -307,26 +621,70 @@
     }
 
     function jumpDays() {
-      const value = parseInt(document.getElementById("jumpInput").value, 10);
-      if (!isNaN(value)) {
-        dayOffset += value;
+      const input = document.getElementById("jumpInput");
+      const value = parseInt(input.value, 10);
+      if (value >= 1 && value <= 365) {
+        const today = new Date();
+        const target = new Date(today.getFullYear(), 0, value);
+        dayOffset = Math.floor((target - new Date(today.getFullYear(), 0, 1)) / 86400000);
         updateDate();
         updateDevotional();
-        document.getElementById("jumpInput").value = "";
+        input.value = "";
       }
     }
 
     function setCategory(category) {
       currentCategory = category;
+      toggleMenu(); // Close menu after selection
       updateDevotional();
     }
 
-    // Modal functions
+    function toggleMenu() {
+      const menu = document.getElementById("side-menu");
+      const overlay = document.getElementById("overlay");
+      menu.classList.toggle("open");
+      overlay.classList.toggle("active");
+    }
+
     function openModal() {
       document.getElementById("modal").style.display = "flex";
     }
+
     function closeModal() {
       document.getElementById("modal").style.display = "none";
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById("modal");
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+
+    // Swipe detection for menu
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) { // swipe right → open menu
+          if (!document.getElementById("side-menu").classList.contains("open")) {
+            toggleMenu();
+          }
+        } else { // swipe left → close menu
+          if (document.getElementById("side-menu").classList.contains("open")) {
+            toggleMenu();
+          }
+        }
+      }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
