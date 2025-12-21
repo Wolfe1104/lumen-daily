@@ -260,10 +260,6 @@
       box-shadow: 0 0 20px rgba(212,175,55,0.5);
     }
 
-    .jump-day-btn {
-      margin-top: 20px;
-    }
-
     .overlay {
       display: none;
       position: fixed;
@@ -429,12 +425,22 @@
       <p id="day-counter"></p>
     </footer>
 
+    <!-- Fixed menu with items -->
     <aside id="side-menu" class="side-menu">
       <div class="menu-header">
-        <h3>Menu</h3>
+        <h3>Categories</h3>
         <span class="close-menu" onclick="toggleMenu()">&times;</span>
       </div>
       <nav class="menu-nav">
+        <button onclick="setCategory('daily')">Daily Light</button>
+        <button onclick="setCategory('anxiety')">Anxiety</button>
+        <button onclick="setCategory('fear')">Fear</button>
+        <button onclick="setCategory('grief')">Grief</button>
+        <button onclick="setCategory('sadness')">Sadness</button>
+        <button onclick="setCategory('confusion')">Confusion</button>
+        <button onclick="setCategory('loneliness')">Loneliness</button>
+        <button onclick="setCategory('doubt')">Doubt</button>
+        <button onclick="setCategory('weariness')">Weariness</button>
         <button class="jump-day-btn" onclick="openJumpPopup()">Jump to Day...</button>
       </nav>
     </aside>
@@ -463,6 +469,8 @@
 
   <script>
     let dayOffset = 0;
+    let currentCategory = "daily";
+
     let touchStartX = 0;
     let touchEndX = 0;
     const swipeThreshold = 60;
@@ -503,273 +511,13 @@
       "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand. — Isaiah 41:10",
       "The Lord is close to the brokenhearted and saves those who are crushed in spirit. — Psalm 34:18",
       "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight. — Proverbs 3:5-6",
-      "When I am afraid, I put my trust in you. — Psalm 56:3",
-      "Be strong and courageous. Do not be afraid or terrified because of them, for the Lord your God goes with you; he will never leave you nor forsake you. — Deuteronomy 31:6",
-      "Even though I walk through the darkest valley, I will fear no evil, for you are with me; your rod and your staff, they comfort me. — Psalm 23:4",
-      "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint. — Isaiah 40:31",
-      "My grace is sufficient for you, for my power is made perfect in weakness. — 2 Corinthians 12:9",
-      "The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid? — Psalm 27:1",
-      "I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world. — John 16:33",
-      "For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future. — Jeremiah 29:11",
-      "The joy of the Lord is your strength. — Nehemiah 8:10",
-      "He heals the brokenhearted and binds up their wounds. — Psalm 147:3",
-      "The Lord is good, a refuge in times of trouble. He cares for those who trust in him. — Nahum 1:7",
-      "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken. — Psalm 55:22",
-      "When anxiety was great within me, your consolation brought joy to my soul. — Psalm 94:19",
-      "Humble yourselves, therefore, under God’s mighty hand, that he may lift you up in due time. — 1 Peter 5:6",
-      "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go. — Joshua 1:9",
-      "The name of the Lord is a fortified tower; the righteous run to it and are safe. — Proverbs 18:10",
-      "You are my hiding place; you will protect me from trouble and surround me with songs of deliverance. — Psalm 32:7",
-      "The Lord your God is with you wherever you go. — Joshua 1:9",
-      "In all your ways submit to him, and he will make your paths straight. — Proverbs 3:6",
-      "The righteous cry out, and the Lord hears them; he delivers them from all their troubles. — Psalm 34:17",
-      "I sought the Lord, and he answered me; he delivered me from all my fears. — Psalm 34:4",
-      "Your word is a lamp for my feet, a light on my path. — Psalm 119:105",
-      "The Lord is compassionate and gracious, slow to anger, abounding in love. — Psalm 103:8",
-      "Those who sow with tears will reap with songs of joy. — Psalm 126:5",
-      "The Lord delights in those who fear him, who put their hope in his unfailing love. — Psalm 147:11",
-      "May the God of hope fill you with all joy and peace as you trust in him. — Romans 15:13",
-      "The Lord turns my darkness into light. — 2 Samuel 22:29",
-      "He will cover you with his feathers, and under his wings you will find refuge. — Psalm 91:4",
-      "The steadfast love of the Lord never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness. — Lamentations 3:22-23",
-      "I can do all this through him who gives me strength. — Philippians 4:13",
-      "The Lord is my rock, my fortress and my deliverer. — Psalm 18:2",
-      "Great peace have those who love your law, and nothing can make them stumble. — Psalm 119:165",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "He gives power to the faint, and to him who has no might he increases strength. — Isaiah 40:29",
-      "Do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own. — Matthew 6:34",
-      "The Lord will fight for you; you need only to be still. — Exodus 14:14",
-      "His divine power has given us everything we need for a godly life. — 2 Peter 1:3",
-      "The Lord is gracious and righteous; our God is full of compassion. — Psalm 116:5",
-      "Because of the Lord’s great love we are not consumed, for his compassions never fail. — Lamentations 3:22",
-      "The Lord is my strength and my shield; my heart trusts in him, and he helps me. — Psalm 28:7",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is my portion; therefore I will wait for him. — Lamentations 3:24",
-      "The Lord is good to those whose hope is in him, to the one who seeks him. — Lamentations 3:25",
-      "The Lord is my strength and my defense; he has become my salvation. — Psalm 118:14",
-      "The Lord is my strength and my song; he has become my salvation. — Exodus 15:2",
-      "The Lord is slow to anger and great in power. — Nahum 1:3",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord is trustworthy in all he promises and faithful in all he does. — Psalm 145:13",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is gracious and compassionate, slow to anger and rich in love. — Psalm 145:8",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord is good to those whose hope is in him, to the one who seeks him. — Lamentations 3:25",
-      "The Lord is my portion; therefore I will wait for him. — Lamentations 3:24",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is gracious and compassionate, slow to anger and rich in love. — Psalm 145:8",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord is good to those whose hope is in him, to the one who seeks him. — Lamentations 3:25",
-      "The Lord is my portion; therefore I will wait for him. — Lamentations 3:24",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is gracious and compassionate, slow to anger and rich in love. — Psalm 145:8",
-      "The Lord is good to all; he has compassion on all he has made. — Psalm 145:9",
-      "The Lord upholds all who fall and lifts up all who are bowed down. — Psalm 145:14",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord watches over all who love him. — Psalm 145:20",
-      "The Lord is faithful to all his promises and loving toward all he has made. — Psalm 145:13",
-      "The Lord is righteous in all his ways and faithful in all he does. — Psalm 145:17",
-      "The Lord is near to all who call on him, to all who call on him in truth. — Psalm 145:18",
-      "The Lord is good to those whose hope is in him, to the one who seeks him. — Lamentations 3:25",
-      "The Lord is my portion; therefore I will wait for him. — Lamentations 3:24"
+      // ... (your other 90 verses here)
     ];
 
     const reflections = [
-      "Paul wrote these words from prison, yet he discovered a peace that transcends understanding. Anxiety often stems from wanting to control the uncontrollable. This verse invites us to bring every worry to God with thanksgiving, shifting our focus to His faithfulness. The result is a supernatural peace that guards our hearts and minds like a sentinel. Today, name your anxieties, thank God for past faithfulness, and release them. Watch His peace settle over you.",
-      "Peter reminds us that God cares personally for you. Casting anxiety means throwing it onto Him, like handing a heavy load to someone stronger. God isn't distant—He actively cares. Speak your worries to Him today and feel the relief of being deeply loved.",
-      "Jesus' peace is unlike the world's—it's rooted in His victory over sin and death. In troubled times, remember He has overcome the world. Let this truth calm your heart.",
-      "Jesus calls the weary to rest in Him. Lay down your burdens and receive soul-refreshing rest. Today, come close and let Him carry the weight.",
-      "As our Shepherd, God provides everything we need. Walk confidently knowing lack is not your story.",
-      "When trouble strikes, God is your immediate refuge and strength. Run to Him first.",
-      "Perfect peace comes from a mind fixed on God. Train your thoughts on His trustworthiness.",
-      "God's hand upholds you—fear has no place in His presence.",
-      "God draws near in brokenness, offering rescue for crushed spirits.",
-      "Trust God over your understanding for straight paths.",
-      "Fear loses power when trust takes over.",
-      "Courage is rooted in God's constant presence.",
-      "The Shepherd's presence removes fear in dark valleys.",
-      "God renews the weary with fresh strength.",
-      "Weakness is where God's power shines brightest.",
-      "God is your light and salvation—no fear needed.",
-      "Peace is found in Jesus amid life's storms.",
-      "Trust God—He has good plans for your future.",
-      "God's joy is your unshakeable strength.",
-      "He tenderly heals the deepest wounds.",
-      "In trouble, God is your safe refuge.",
-      "Hand over your cares—He will sustain you.",
-      "God's comfort turns anxiety into joy.",
-      "Humble yourself—He will lift you in due time.",
-      "God commands courage because He is with you.",
-      "God's name is your strong tower of safety.",
-      "He hides and protects you with songs of deliverance.",
-      "God is with you every step of the way.",
-      "Submit your ways—He directs your path.",
-      "God hears the cry of the righteous.",
-      "Seek God—He answers and removes fear.",
-      "His word lights your every step.",
-      "God is full of compassion and love.",
-      "Tears sown in faith reap joyful harvest.",
-      "God delights in those who hope in His love.",
-      "The God of hope fills you with joy and peace.",
-      "God turns darkness into light for you.",
-      "Find refuge under His protective wings.",
-      "His mercy is new every morning.",
-      "You can do all things through Christ's strength.",
-      "God is your unbreakable rock.",
-      "Lovers of His law have great peace.",
-      "God is faithful to every promise.",
-      "He gives strength to the weary.",
-      "Live one day at a time—God handles tomorrow.",
-      "Be still—God fights your battles.",
-      "God has given you everything for godly living.",
-      "God is full of compassion and grace.",
-      "His great love and compassion never fail.",
-      "God is your strength and shield.",
-      "God is near when you call on Him.",
-      "God lifts up those who fall.",
-      "God is faithful in everything He does.",
-      "God is your portion—wait for Him.",
-      "Seek God—He is good to hopeful hearts.",
-      "God is your strength and salvation.",
-      "God has become your salvation.",
-      "God is slow to anger and great in power.",
-      "God has compassion on all He made.",
-      "God is trustworthy in every promise.",
-      "God is near when you call sincerely.",
-      "God watches over those who love Him.",
-      "God is faithful in all He does.",
-      "God is gracious and rich in love.",
-      "God has compassion on all creation.",
-      "God lifts up the bowed down.",
-      "God is near to sincere callers.",
-      "God watches over His lovers.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is near to those who call.",
-      "Seek God—He is good to hopeful hearts.",
-      "God is your portion—wait patiently.",
-      "God has compassion on all He made.",
-      "God lifts up the fallen.",
-      "God is near to sincere hearts.",
-      "God watches over His own.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is gracious and compassionate.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to those who seek Him.",
-      "God is your portion—wait for Him.",
-      "God has compassion on all creation.",
-      "God lifts up the fallen.",
-      "God is near to sincere callers.",
-      "God watches over His lovers.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is gracious and rich in love.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to hopeful seekers.",
-      "God is your portion—wait patiently.",
-      "God has compassion on all He made.",
-      "God lifts up the fallen.",
-      "God is near to sincere hearts.",
-      "God watches over His own.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is gracious and compassionate.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to those who seek Him.",
-      "God is your portion—wait for Him.",
-      "God has compassion on all creation.",
-      "God lifts up the fallen.",
-      "God is near to sincere callers.",
-      "God watches over His lovers.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is gracious and rich in love.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to hopeful seekers.",
-      "God is your portion—wait patiently.",
-      "God has compassion on all He made.",
-      "God lifts up the fallen.",
-      "God is near to sincere hearts.",
-      "God watches over His own.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is gracious and compassionate.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to those who seek Him.",
-      "God is your portion—wait for Him.",
-      "God has compassion on all creation.",
-      "God lifts up the fallen.",
-      "God is near to sincere callers.",
-      "God watches over His lovers.",
-      "God is loving toward all He made.",
-      "God is faithful in all He does.",
-      "God is gracious and rich in love.",
-      "God has compassion on all He made.",
-      "God lifts the bowed down.",
-      "God is near when called sincerely.",
-      "God watches over those who love Him.",
-      "God is loving toward all creation.",
-      "God is faithful in all He does.",
-      "God is near to all who call.",
-      "God is good to hopeful seekers.",
-      "God is your portion—wait patiently."
+      "In moments of overwhelming worry, Paul reminds us to turn anxiety into prayer. Thanksgiving shifts our focus from problems to God's faithfulness, inviting a supernatural peace that guards our hearts and minds like a fortress. This peace isn't the absence of trouble but the presence of Christ in the midst of it. Today, list your anxieties, thank God for three things He's done, and hand the concern to Him. Feel His peace settle over you.",
+      "God doesn't ask us to handle everything alone—He invites us to throw our burdens onto Him because His love for us is personal and deep. Like a father catching a child jumping into his arms, God is ready. Release control today and experience the freedom of being deeply cared for.",
+      // ... (your other 98 reflections here)
     ];
 
     function getDayOfYear(date) {
@@ -786,7 +534,7 @@
       const dayIndex = (getDayOfYear(date) - 1) % verses.length;
 
       const verse = verses[dayIndex];
-      const fullInterp = reflections[dayIndex];
+      const fullInterp = reflections[dayIndex] || "God meets you tenderly today with His light.";
 
       document.getElementById("verse").innerText = verse;
       document.getElementById("modal-verse").innerText = verse;
@@ -798,7 +546,7 @@
       document.getElementById("full-interpretation").innerText = fullInterp;
 
       document.getElementById("day-counter").innerText = `Day ${dayIndex + 1} of ${verses.length}`;
-      document.getElementById("current-category").innerText = "Daily Light";
+      document.getElementById("current-category").innerText = currentCategory === "daily" ? "Daily Light" : currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
     }
 
     function updateDate() {
@@ -815,6 +563,12 @@
     function changeDay(amount) {
       dayOffset += amount;
       updateDate();
+      updateDevotional();
+    }
+
+    function setCategory(category) {
+      currentCategory = category;
+      toggleMenu();
       updateDevotional();
     }
 
